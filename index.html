@@ -338,6 +338,109 @@ const USE_PNG_ICONS      = true;    // true → load /icons/puma_[color].png
 const USE_NOMINATIM      = true;    // true → fallback to Nominatim for unknown cities
 const NOMINATIM_DELAY_MS = 1100;    // delay between Nominatim calls (ms)
 
+/* ═══════════════════════════════════════════════════════════
+   I18N  —  browser language detection + translations
+   Supported: es, en, fr, de, pt  (default: es)
+   Title "Todos nuestros Pumas" always stays in Spanish.
+═══════════════════════════════════════════════════════════ */
+const I18N = {
+  es: {
+    loading:     'Cargando',
+    filters:     'Filtros',
+    legend:      'Leyenda',
+    colors:      'Colores',
+    motor:       'Motor',
+    all:         'Todos',
+    none:        'Ninguno',
+    noData:      'No hay datos',
+    allPumas:    'Todos los Pumas',
+    total:       'Total',
+    ttMotor:     'Motor',
+    ttColor:     'Color',
+    ttCity:      'Ciudad',
+    ttCityTotal: c => `En ${c} / total:`,
+    errorLoad:   'Error al cargar los datos:',
+  },
+  en: {
+    loading:     'Loading',
+    filters:     'Filters',
+    legend:      'Legend',
+    colors:      'Colours',
+    motor:       'Engine',
+    all:         'All',
+    none:        'None',
+    noData:      'No data',
+    allPumas:    'All Pumas',
+    total:       'Total',
+    ttMotor:     'Engine',
+    ttColor:     'Colour',
+    ttCity:      'City',
+    ttCityTotal: c => `In ${c} / total:`,
+    errorLoad:   'Error loading data:',
+  },
+  fr: {
+    loading:     'Chargement',
+    filters:     'Filtres',
+    legend:      'Légende',
+    colors:      'Couleurs',
+    motor:       'Moteur',
+    all:         'Tous',
+    none:        'Aucun',
+    noData:      'Aucune donnée',
+    allPumas:    'Tous les Pumas',
+    total:       'Total',
+    ttMotor:     'Moteur',
+    ttColor:     'Couleur',
+    ttCity:      'Ville',
+    ttCityTotal: c => `À ${c}\u00a0/ total\u00a0:`,
+    errorLoad:   'Erreur lors du chargement\u00a0:',
+  },
+  de: {
+    loading:     'Laden',
+    filters:     'Filter',
+    legend:      'Legende',
+    colors:      'Farben',
+    motor:       'Motor',
+    all:         'Alle',
+    none:        'Keine',
+    noData:      'Keine Daten',
+    allPumas:    'Alle Pumas',
+    total:       'Gesamt',
+    ttMotor:     'Motor',
+    ttColor:     'Farbe',
+    ttCity:      'Stadt',
+    ttCityTotal: c => `In ${c} / gesamt:`,
+    errorLoad:   'Fehler beim Laden:',
+  },
+  pt: {
+    loading:     'A carregar',
+    filters:     'Filtros',
+    legend:      'Legenda',
+    colors:      'Cores',
+    motor:       'Motor',
+    all:         'Todos',
+    none:        'Nenhum',
+    noData:      'Sem dados',
+    allPumas:    'Todos os Pumas',
+    total:       'Total',
+    ttMotor:     'Motor',
+    ttColor:     'Cor',
+    ttCity:      'Cidade',
+    ttCityTotal: c => `Em ${c} / total:`,
+    errorLoad:   'Erro ao carregar os dados:',
+  },
+};
+
+(function detectAndSetLang() {
+  const supported = ['es', 'en', 'fr', 'de', 'pt'];
+  const langs = navigator.languages || [navigator.language || 'es'];
+  const lang  = langs.map(l => l.split('-')[0].toLowerCase()).find(l => supported.includes(l)) || 'es';
+  document.documentElement.lang = lang;
+})();
+
+/* Active translation — resolved once at startup */
+const T = I18N[document.documentElement.lang] || I18N.es;
+
 /* ── Color map (Spanish color names → CSS colors) ───────── */
 const COLOR_MAP = {
   rojo:    '#e74c3c',
@@ -551,16 +654,16 @@ function makeTooltipContent(vehicle, allVehicles) {
 
   return `
     <div>
-      <div class="tt-row"><b>Motor:</b><span>${vehicle.motor}</span></div>
-      <div class="tt-row"><b>Color:</b>
+      <div class="tt-row"><b>${T.ttMotor}:</b><span>${vehicle.motor}</span></div>
+      <div class="tt-row"><b>${T.ttColor}:</b>
         <span style="display:inline-flex;align-items:center;gap:4px">
           <span style="width:12px;height:12px;border-radius:50%;background:${cc};border:1px solid rgba(0,0,0,0.2);display:inline-block"></span>
           ${capitalize(vehicle.color)}
         </span>
       </div>
-      <div class="tt-row"><b>Ciudad:</b><span>${vehicle.ciudad}</span></div>
+      <div class="tt-row"><b>${T.ttCity}:</b><span>${vehicle.ciudad}</span></div>
       <div class="tt-counts">
-        <div style="font-size:11px;color:#888;margin-bottom:3px">En ${vehicle.ciudad} / total:</div>
+        <div style="font-size:11px;color:#888;margin-bottom:3px">${T.ttCityTotal(vehicle.ciudad)}</div>
         ${countsHtml}
       </div>
     </div>`.trim();
@@ -626,14 +729,14 @@ function renderLegend() {
     });
 
   if (Object.keys(byColor).length === 0) {
-    body.innerHTML = '<div style="color:#888;font-style:italic;padding:4px 2px">No hay datos</div>';
+    body.innerHTML = `<div style="color:#888;font-style:italic;padding:4px 2px">${T.noData}</div>`;
     return;
   }
 
   const grandTotal = Object.values(byColor).reduce((sum, motors) =>
     sum + Object.values(motors).reduce((a, b) => a + b, 0), 0);
 
-  let html = `<div style="font-weight:bold;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid #ddd">Todos los Pumas: ${grandTotal}</div>`;
+  let html = `<div style="font-weight:bold;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid #ddd">${T.allPumas}: ${grandTotal}</div>`;
   Object.keys(byColor).sort().forEach(color => {
     const css = colorCSS(color);
     const total = Object.values(byColor[color]).reduce((a, b) => a + b, 0);
@@ -643,7 +746,7 @@ function renderLegend() {
           <span class="legend-color-swatch" style="background:${css}"></span>
           <span>${capitalize(color)}</span>
         </span>
-        <span>Total: <b>${total}</b></span>
+        <span>${T.total}: <b>${total}</b></span>
       </div>`;
     Object.entries(byColor[color]).sort().forEach(([motor, count]) => {
       html += `<div class="legend-motor-row">
@@ -812,9 +915,29 @@ function snapPosition(panel) {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   APPLY TRANSLATIONS  (static DOM elements)
+═══════════════════════════════════════════════════════════ */
+function applyTranslations() {
+  document.querySelector('#loading .loading-box p').textContent = T.loading;
+  document.getElementById('filters-header').textContent         = T.filters;
+  document.getElementById('legend-header').textContent          = T.legend;
+  // Filter sections
+  const sections = document.querySelectorAll('#filters .filter-section-title');
+  if (sections[0]) sections[0].textContent = T.colors;
+  if (sections[1]) sections[1].textContent = T.motor;
+  // Filter buttons
+  document.getElementById('color-all').textContent  = T.all;
+  document.getElementById('color-none').textContent = T.none;
+  document.getElementById('motor-all').textContent  = T.all;
+  document.getElementById('motor-none').textContent = T.none;
+}
+
+/* ═══════════════════════════════════════════════════════════
    MAIN
 ═══════════════════════════════════════════════════════════ */
 async function main() {
+  applyTranslations();
+
   // Show loading
   document.getElementById('loading').classList.remove('hidden');
 
@@ -898,7 +1021,7 @@ async function main() {
 main().catch(err => {
   console.error(err);
   document.getElementById('loading').classList.add('hidden');
-  alert('Error al cargar los datos: ' + err.message);
+  alert(T.errorLoad + ' ' + err.message);
 });
 </script>
 </body>
