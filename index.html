@@ -359,7 +359,8 @@ function textColor(hex) {
 const headerEl = document.getElementById('header');
 document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
 
-const map = L.map('map', { zoomControl: true }).setView([46, 10], 4);
+const map = L.map('map', { zoomControl: false }).setView([46, 10], 4);
+L.control.zoom({ position: window.innerWidth < 768 ? 'bottomright' : 'topleft' }).addTo(map);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
