@@ -360,6 +360,7 @@ const I18N = {
     ttCity:      'Ciudad',
     ttCityTotal: c => `En ${c} / total:`,
     errorLoad:   'Error al cargar los datos:',
+    colorNames:  { rojo:'Rojo', blanco:'Blanco', gris:'Gris', plata:'Plata', azul:'Azul', verde:'Verde', negro:'Negro', amarillo:'Amarillo', naranja:'Naranja', 'marrón':'Marrón', 'azul imperial':'Azul Imperial', plateado:'Plateado' },
   },
   en: {
     loading:     'Loading',
@@ -377,6 +378,7 @@ const I18N = {
     ttCity:      'City',
     ttCityTotal: c => `In ${c} / total:`,
     errorLoad:   'Error loading data:',
+    colorNames:  { rojo:'Red', blanco:'White', gris:'Grey', plata:'Silver', azul:'Blue', verde:'Green', negro:'Black', amarillo:'Yellow', naranja:'Orange', 'marrón':'Brown', 'azul imperial':'Imperial Blue', plateado:'Silver' },
   },
   fr: {
     loading:     'Chargement',
@@ -394,6 +396,7 @@ const I18N = {
     ttCity:      'Ville',
     ttCityTotal: c => `À ${c}\u00a0/ total\u00a0:`,
     errorLoad:   'Erreur lors du chargement\u00a0:',
+    colorNames:  { rojo:'Rouge', blanco:'Blanc', gris:'Gris', plata:'Argent', azul:'Bleu', verde:'Vert', negro:'Noir', amarillo:'Jaune', naranja:'Orange', 'marrón':'Marron', 'azul imperial':'Bleu impérial', plateado:'Argenté' },
   },
   de: {
     loading:     'Laden',
@@ -411,6 +414,7 @@ const I18N = {
     ttCity:      'Stadt',
     ttCityTotal: c => `In ${c} / gesamt:`,
     errorLoad:   'Fehler beim Laden:',
+    colorNames:  { rojo:'Rot', blanco:'Weiß', gris:'Grau', plata:'Silber', azul:'Blau', verde:'Grün', negro:'Schwarz', amarillo:'Gelb', naranja:'Orange', 'marrón':'Braun', 'azul imperial':'Kaiserblau', plateado:'Silber' },
   },
   pt: {
     loading:     'A carregar',
@@ -428,6 +432,7 @@ const I18N = {
     ttCity:      'Cidade',
     ttCityTotal: c => `Em ${c} / total:`,
     errorLoad:   'Erro ao carregar os dados:',
+    colorNames:  { rojo:'Vermelho', blanco:'Branco', gris:'Cinzento', plata:'Prata', azul:'Azul', verde:'Verde', negro:'Preto', amarillo:'Amarelo', naranja:'Laranja', 'marrón':'Castanho', 'azul imperial':'Azul Imperial', plateado:'Prateado' },
   },
 };
 
@@ -647,7 +652,7 @@ function makeTooltipContent(vehicle, allVehicles) {
   Object.keys(cityByColor).sort().forEach(col => {
     const colCSS = colorCSS(col);
     countsHtml += `<div class="tt-row">
-      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${colCSS};border:1px solid rgba(0,0,0,0.2);vertical-align:middle;margin-right:3px"></span>${capitalize(col)}:</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${colCSS};border:1px solid rgba(0,0,0,0.2);vertical-align:middle;margin-right:3px"></span>${translateColor(col)}:</span>
       <span>(${cityByColor[col]||0} / ${totalByColor[col]||0})</span>
     </div>`;
   });
@@ -658,7 +663,7 @@ function makeTooltipContent(vehicle, allVehicles) {
       <div class="tt-row"><b>${T.ttColor}:</b>
         <span style="display:inline-flex;align-items:center;gap:4px">
           <span style="width:12px;height:12px;border-radius:50%;background:${cc};border:1px solid rgba(0,0,0,0.2);display:inline-block"></span>
-          ${capitalize(vehicle.color)}
+          ${translateColor(vehicle.color)}
         </span>
       </div>
       <div class="tt-row"><b>${T.ttCity}:</b><span>${vehicle.ciudad}</span></div>
@@ -670,6 +675,7 @@ function makeTooltipContent(vehicle, allVehicles) {
 }
 
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+function translateColor(c) { return T.colorNames[c.toLowerCase()] || capitalize(c); }
 
 /* ═══════════════════════════════════════════════════════════
    RENDER MARKERS
@@ -744,7 +750,7 @@ function renderLegend() {
       <div class="legend-color-title">
         <span class="legend-color-name">
           <span class="legend-color-swatch" style="background:${css}"></span>
-          <span>${capitalize(color)}</span>
+          <span>${translateColor(color)}</span>
         </span>
         <span>${T.total}: <b>${total}</b></span>
       </div>`;
@@ -779,7 +785,7 @@ function renderFilters() {
     const tc  = textColor(css);
     const el  = document.createElement('span');
     el.className     = 'bubble';
-    el.textContent   = capitalize(color);
+    el.textContent   = translateColor(color);
     el.style.background   = css;
     el.style.borderColor  = css;
     el.style.color        = tc;
