@@ -21,16 +21,23 @@ Página estática que lee una lista de vehículos desde un CSV y los ubica en un
 
 ```
 /
-├── index.html          # Aplicación completa (HTML + CSS + JS)
-├── CNAME               # Dominio personalizado para GitHub Pages
+├── index.html                  # Aplicación completa (HTML + CSS + JS)
+├── CNAME                       # Dominio personalizado para GitHub Pages
+├── site.webmanifest            # Manifiesto PWA
+├── favicon.ico
+├── favicon-16x16.png
+├── favicon-32x32.png
+├── apple-touch-icon.png
+├── android-chrome-192x192.png
+├── android-chrome-512x512.png
 ├── data/
-│   ├── pumas.csv       # Lista de vehículos (ciudad, país, motor, color)
-│   └── gazetteer.json  # Base de datos offline de coordenadas por ciudad
+│   ├── pumas.csv               # Lista de vehículos (ciudad, país, motor, color)
+│   └── gazetteer.json          # Base de datos offline de coordenadas por ciudad
 ├── icons/
 │   └── puma_[color].png
 └── scripts/
-    ├── convert_csv.py  # Convierte el CSV fuente al formato público
-    └── gen_icons.py    # Genera los iconos PNG por color
+    ├── convert_csv.py          # Convierte el CSV fuente al formato público
+    └── gen_icons.py            # Genera los iconos PNG por color
 ```
 
 ## Desarrollo local
