@@ -42,13 +42,3 @@ poetry install
 poetry run serve        # abre http://localhost:8080
 poetry run serve 9000   # puerto alternativo
 ```
-
-## Actualizar los datos
-
-Los datos fuente son privados (contienen nombres de propietarios) y viven fuera de este repositorio. Para actualizar `data/pumas.csv`:
-
-```bash
-python scripts/convert_csv.py /ruta/al/car_list.csv
-```
-
-El script elimina la columna de nombres y adapta el formato al que espera la aplicación.
