@@ -45,7 +45,7 @@ def convert(input_path: Path, output_path: Path) -> None:
     for row in rows:
         ciudad = row["Poblacion"].strip()
         motor  = row["Motor"].strip().removeprefix("Puma ").strip()
-        color  = row["Color"].strip()
+        color  = row["Color"].strip() or "Rojo"
 
         if not ciudad or not motor:
             skipped += 1
