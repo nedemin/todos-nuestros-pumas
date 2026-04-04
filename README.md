@@ -16,28 +16,27 @@ Página estática que lee una lista de vehículos desde un CSV y los ubica en un
 - [Leaflet.markercluster](https://github.com/Libs/Leaflet.markercluster) — clusters
 - [OpenStreetMap](https://www.openstreetmap.org/) — tiles del mapa
 - [Nominatim](https://nominatim.org/) — geolocalización de ciudades no incluidas en el gazetteer offline
+- [Google Sheets API](https://developers.google.com/sheets/api) — descarga de respuestas del formulario de registro
 
 ## Estructura
 
 ```
 /
-├── index.html                  # Aplicación completa (HTML + CSS + JS)
-├── CNAME                       # Dominio personalizado para GitHub Pages
-├── site.webmanifest            # Manifiesto PWA
-├── favicon.ico
-├── favicon-16x16.png
-├── favicon-32x32.png
+├── index.html                     # Aplicación completa (HTML + CSS + JS)
+├── CNAME                          # Dominio personalizado para GitHub Pages
+├── site.webmanifest               # Manifiesto PWA
+├── favicon.ico / favicon-*.png    # Favicons
 ├── apple-touch-icon.png
-├── android-chrome-192x192.png
-├── android-chrome-512x512.png
+├── android-chrome-*.png
 ├── data/
-│   ├── pumas.csv               # Lista de vehículos (ciudad, país, motor, color)
-│   └── gazetteer.json          # Base de datos offline de coordenadas por ciudad
+│   ├── pumas.csv                  # Lista pública de vehículos (ciudad, país, motor, color)
+│   └── gazetteer.json             # Base de datos offline de coordenadas por ciudad
 ├── icons/
-│   └── puma_[color].png
+│   └── puma_[color].png           # Iconos del coche por color
 └── scripts/
-    ├── convert_csv.py          # Convierte el CSV fuente al formato público
-    └── gen_icons.py            # Genera los iconos PNG por color
+    ├── update_from_sheets.py      # Actualiza pumas.csv desde Google Sheets (formulario)
+    ├── convert_csv.py             # Alternativa: convierte CSV local privado al formato público
+    └── gen_icons.py               # Genera iconos PNG por color a partir de la silueta base
 ```
 
 ## Desarrollo local
@@ -48,4 +47,38 @@ Requiere [Poetry](https://python-poetry.org/).
 poetry install
 poetry run serve        # abre http://localhost:8080
 poetry run serve 9000   # puerto alternativo
+```
+
+## Actualizar los datos del mapa
+
+Los datos se recogen a través de un formulario de Google Forms (enlace visible en el mapa). Las respuestas se almacenan en una hoja de cálculo privada de Google Sheets accesible solo para el administrador.
+
+### Configuración inicial (solo la primera vez)
+
+1. Entra en [console.cloud.google.com](https://console.cloud.google.com)
+2. Activa la **Google Sheets API** en tu proyecto
+3. Crea credenciales: **OAuth client ID → Desktop app**
+4. Descarga el JSON y guárdalo en `~/.config/tpumas/credentials.json`
+
+> ⚠️ Nunca subas `credentials.json` ni ningún token al repositorio.
+> El `.gitignore` ya los excluye como medida de seguridad adicional.
+
+### Ejecución
+
+```bash
+# Descarga respuestas y regenera data/pumas.csv
+poetry run python scripts/update_from_sheets.py
+
+# Vista previa sin escribir nada
+poetry run python scripts/update_from_sheets.py --dry-run
+```
+
+La primera vez se abrirá el navegador para autenticarse con Google. El token se guarda en `~/.config/tpumas/authorized_user.json` y no hace falta volver a autenticarse.
+
+Después de actualizar el CSV, publicar los cambios:
+
+```bash
+git add data/pumas.csv
+git commit -m "Actualiza datos del mapa"
+git push
 ```

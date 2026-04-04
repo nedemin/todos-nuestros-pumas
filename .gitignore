@@ -5,5 +5,13 @@ __pycache__/
 
 # Dev
 *.zip
-# .DS_Store
 .DS_Store
+
+# Credenciales y tokens — nunca al repositorio
+credentials.json
+client_secret*.json
+authorized_user.json
+token.json
+*.pem
+*.key
+service_account*.json
