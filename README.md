@@ -82,3 +82,28 @@ git add data/pumas.csv
 git commit -m "Actualiza datos del mapa"
 git push
 ```
+
+## Notificaciones por email
+
+Las respuestas del formulario se pueden notificar por email mediante un script de Google Apps Script asociado a la hoja de respuestas (**Extensiones → Apps Script**):
+
+```javascript
+function onFormSubmit(e) {
+  const row = e.values;
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+  let body = "Nueva respuesta en el formulario de Todos nuestros Pumas:\n\n";
+  headers.forEach((header, i) => {
+    body += `${header}: ${row[i] || "-"}\n`;
+  });
+
+  MailApp.sendEmail({
+    to: SpreadsheetApp.getActiveSpreadsheet().getOwner().getEmail(),
+    subject: "🐾 Nuevo Puma registrado",
+    body: body
+  });
+}
+```
+
+Actívalo en **Activadores → Al enviar el formulario**.
