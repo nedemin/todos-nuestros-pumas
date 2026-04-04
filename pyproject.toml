@@ -1,0 +1,19 @@
+[project]
+name = "tpumas"
+version = "0.1.0"
+description = "Todos nuestros Pumas — servidor local"
+authors = [
+    {name = "n/a"}
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+serve = "tpumas.server:main"
+
+[tool.poetry]
+packages = [{include = "tpumas"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
