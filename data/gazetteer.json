@@ -60,5 +60,22 @@
   "Vigo": { "lat": 42.2314, "lon": -8.7124 },
   "Gijón": { "lat": 43.5200, "lon": -5.6615 },
   "San Sebastián": { "lat": 43.3183, "lon": -1.9812 },
-  "Pamplona": { "lat": 42.8188, "lon": -1.6444 }
+  "Pamplona": { "lat": 42.8188, "lon": -1.6444 },
+  "Vic": { "lat": 41.9300, "lon": 2.2547 },
+  "Santander": { "lat": 43.4124, "lon": -3.8097 },
+  "Algemesí": { "lat": 39.1828, "lon": -0.4337 },
+  "Burgos": { "lat": 42.3439, "lon": -3.6966 },
+  "Portugalete": { "lat": 43.3097, "lon": -3.0709 },
+  "Badajoz": { "lat": 38.8794, "lon": -6.9706 },
+  "Llodio": { "lat": 43.1431, "lon": -2.9614 },
+  "Vizcaya": { "lat": 43.2200, "lon": -2.6900 },
+  "Tenerife": { "lat": 28.4636, "lon": -16.2518 },
+  "Tarragona": { "lat": 41.1689, "lon": 1.2445 },
+  "Palencia": { "lat": 42.0097, "lon": -4.5288 },
+  "Palma de Mallorca": { "lat": 39.5696, "lon": 2.6502 },
+  "Denia": { "lat": 38.8399, "lon": 0.0557 },
+  "Valdemoro": { "lat": 40.1929, "lon": -3.6760 },
+  "Ponferrada": { "lat": 42.5468, "lon": -6.5975 },
+  "Ourense": { "lat": 42.3364, "lon": -7.8642 },
+  "Leganés": { "lat": 40.3282, "lon": -3.7633 }
 }
