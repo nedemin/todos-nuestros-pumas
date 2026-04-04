@@ -206,6 +206,58 @@
       width: auto !important; height: auto !important;
     }
 
+    /* ── Collapse button ────────────────────────────────────── */
+    .panel-toggle {
+      float: right;
+      margin-left: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1;
+      opacity: 0.85;
+      transition: transform 0.2s;
+      /* bigger tap target on touch */
+      padding: 2px 4px;
+      margin-right: -4px;
+    }
+    .panel.collapsed .panel-toggle { transform: rotate(-90deg); }
+    .panel.collapsed .panel-body   { display: none; }
+
+    /* ── Responsive: tablet ─────────────────────────────────── */
+    @media (max-width: 1024px) {
+      #filters { max-width: 185px; }
+      #legend  { max-width: 185px; }
+    }
+
+    /* ── Responsive: mobile ─────────────────────────────────── */
+    @media (max-width: 767px) {
+      #filters {
+        top: calc(var(--header-h, 44px) + 8px);
+        left: 8px;
+        transform: none;
+        max-width: 165px;
+        max-height: calc(100vh - var(--header-h, 44px) - 20px);
+      }
+      #filters .panel-body {
+        max-height: calc(55vh);
+      }
+      #legend {
+        top: calc(var(--header-h, 44px) + 8px);
+        right: 8px;
+        max-width: 165px;
+        max-height: calc(100vh - var(--header-h, 44px) - 20px);
+      }
+      #legend .panel-body {
+        max-height: calc(55vh);
+      }
+      .bubble {
+        font-size: 10px;
+        padding: 2px 7px;
+      }
+      .filter-btn {
+        padding: 5px 0;
+      }
+    }
+
     /* ── Popover (tooltip) ──────────────────────────────── */
     .leaflet-tooltip.puma-tooltip {
       background: rgba(255,255,255,0.97);
@@ -666,25 +718,28 @@ function setAll(set, values, container, active) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DRAG PANELS
+   DRAG PANELS  (mouse + touch)
 ═══════════════════════════════════════════════════════════ */
 function makeDraggable(panel, handle) {
   let startX, startY, startLeft, startTop;
 
-  handle.addEventListener('mousedown', e => {
-    e.preventDefault();
+  function beginDrag(clientX, clientY) {
     const rect = panel.getBoundingClientRect();
-    startX = e.clientX;
-    startY = e.clientY;
+    startX    = clientX;
+    startY    = clientY;
     startLeft = rect.left;
     startTop  = rect.top;
-
-    // Ensure position is set absolutely
     panel.style.left      = startLeft + 'px';
     panel.style.top       = startTop  + 'px';
     panel.style.right     = 'auto';
     panel.style.transform = 'none';
+  }
 
+  // ── Mouse ──────────────────────────────────────────────
+  handle.addEventListener('mousedown', e => {
+    if (e.target.classList.contains('panel-toggle')) return;
+    e.preventDefault();
+    beginDrag(e.clientX, e.clientY);
     function onMove(e) {
       panel.style.left = (startLeft + e.clientX - startX) + 'px';
       panel.style.top  = (startTop  + e.clientY - startY) + 'px';
@@ -696,6 +751,55 @@ function makeDraggable(panel, handle) {
     document.addEventListener('mousemove', onMove);
     document.addEventListener('mouseup',   onUp);
   });
+
+  // ── Touch ──────────────────────────────────────────────
+  handle.addEventListener('touchstart', e => {
+    if (e.target.classList.contains('panel-toggle')) return;
+    if (e.touches.length !== 1) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    beginDrag(t.clientX, t.clientY);
+    function onMove(e) {
+      const t = e.touches[0];
+      panel.style.left = (startLeft + t.clientX - startX) + 'px';
+      panel.style.top  = (startTop  + t.clientY - startY) + 'px';
+    }
+    function onEnd() {
+      handle.removeEventListener('touchmove', onMove);
+      handle.removeEventListener('touchend',  onEnd);
+    }
+    handle.addEventListener('touchmove', onMove, { passive: false });
+    handle.addEventListener('touchend',  onEnd);
+  }, { passive: false });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COLLAPSIBLE PANELS
+═══════════════════════════════════════════════════════════ */
+function makeCollapsible(panel, header, startCollapsed) {
+  const btn = document.createElement('span');
+  btn.className   = 'panel-toggle';
+  btn.textContent = '▾';
+  header.appendChild(btn);
+
+  function setCollapsed(val) {
+    panel.classList.toggle('collapsed', val);
+  }
+
+  setCollapsed(startCollapsed);
+
+  btn.addEventListener('click',      () => setCollapsed(!panel.classList.contains('collapsed')));
+  btn.addEventListener('touchend', e => { e.preventDefault(); setCollapsed(!panel.classList.contains('collapsed')); });
+}
+
+/* Convierte la posición CSS del panel a px explícitos para evitar
+   saltos cuando el drag toma el control en móvil/tablet. */
+function snapPosition(panel) {
+  const rect = panel.getBoundingClientRect();
+  panel.style.left      = rect.left + 'px';
+  panel.style.top       = rect.top  + 'px';
+  panel.style.right     = 'auto';
+  panel.style.transform = 'none';
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -736,6 +840,27 @@ async function main() {
   // Build UI (renderLegend is called inside renderMarkers)
   renderFilters();
   renderMarkers();
+
+  const isMobile = window.innerWidth < 768;
+
+  // En móvil y tablet: fijar posición explícita antes de activar el drag
+  // para evitar saltos en el primer toque
+  if (window.innerWidth < 1025) {
+    snapPosition(document.getElementById('filters'));
+    snapPosition(document.getElementById('legend'));
+  }
+
+  // Collapsible panels (colapsados por defecto en móvil)
+  makeCollapsible(
+    document.getElementById('filters'),
+    document.getElementById('filters-header'),
+    isMobile
+  );
+  makeCollapsible(
+    document.getElementById('legend'),
+    document.getElementById('legend-header'),
+    isMobile
+  );
 
   // Draggable panels
   makeDraggable(
