@@ -56,8 +56,10 @@ COL_SKIP   = {"Marca de tiempo", "Timestamp", "Nombre", "nombre"}
 
 def get_col(row: dict, candidates: tuple) -> str:
     for key in candidates:
-        if key in row and row[key].strip():
-            return row[key].strip()
+        if key in row:
+            val = str(row[key]).strip() if row[key] is not None else ""
+            if val and val.lower() != "nan":
+                return val
     return ""
 
 
