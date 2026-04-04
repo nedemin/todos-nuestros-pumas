@@ -266,6 +266,26 @@
       }
     }
 
+    /* ── Register link ──────────────────────────────────── */
+    #register-link {
+      position: absolute;
+      bottom: 24px;
+      left: 12px;
+      z-index: 900;
+      background: #2c3e50;
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      letter-spacing: 0.2px;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    #register-link:hover { background: #3d5166; }
+
     /* ── Popover (tooltip) ──────────────────────────────── */
     .leaflet-tooltip.puma-tooltip {
       background: rgba(255,255,255,0.97);
@@ -286,7 +306,9 @@
 <body>
 
 <div id="header">Todos nuestros Pumas</div>
-<div id="map"></div>
+<div id="map">
+  <a id="register-link" href="#" target="_blank" rel="noopener"></a>
+</div>
 
 <!-- Loading overlay -->
 <div id="loading">
@@ -360,6 +382,7 @@ const I18N = {
     ttCity:      'Ciudad',
     ttCityTotal: c => `En ${c} / total:`,
     errorLoad:   'Error al cargar los datos:',
+    register:    'Registra tu Puma',
     colorNames:  { rojo:'Rojo', blanco:'Blanco', gris:'Gris', plata:'Plata', azul:'Azul', verde:'Verde', negro:'Negro', amarillo:'Amarillo', naranja:'Naranja', 'marrón':'Marrón', 'azul imperial':'Azul Imperial', plateado:'Plateado' },
   },
   en: {
@@ -378,6 +401,7 @@ const I18N = {
     ttCity:      'City',
     ttCityTotal: c => `In ${c} / total:`,
     errorLoad:   'Error loading data:',
+    register:    'Register your Puma',
     colorNames:  { rojo:'Red', blanco:'White', gris:'Grey', plata:'Silver', azul:'Blue', verde:'Green', negro:'Black', amarillo:'Yellow', naranja:'Orange', 'marrón':'Brown', 'azul imperial':'Imperial Blue', plateado:'Silver' },
   },
   fr: {
@@ -396,6 +420,7 @@ const I18N = {
     ttCity:      'Ville',
     ttCityTotal: c => `À ${c}\u00a0/ total\u00a0:`,
     errorLoad:   'Erreur lors du chargement\u00a0:',
+    register:    'Enregistrer votre Puma',
     colorNames:  { rojo:'Rouge', blanco:'Blanc', gris:'Gris', plata:'Argent', azul:'Bleu', verde:'Vert', negro:'Noir', amarillo:'Jaune', naranja:'Orange', 'marrón':'Marron', 'azul imperial':'Bleu impérial', plateado:'Argenté' },
   },
   de: {
@@ -414,6 +439,7 @@ const I18N = {
     ttCity:      'Stadt',
     ttCityTotal: c => `In ${c} / gesamt:`,
     errorLoad:   'Fehler beim Laden:',
+    register:    'Deinen Puma registrieren',
     colorNames:  { rojo:'Rot', blanco:'Weiß', gris:'Grau', plata:'Silber', azul:'Blau', verde:'Grün', negro:'Schwarz', amarillo:'Gelb', naranja:'Orange', 'marrón':'Braun', 'azul imperial':'Kaiserblau', plateado:'Silber' },
   },
   pt: {
@@ -432,6 +458,7 @@ const I18N = {
     ttCity:      'Cidade',
     ttCityTotal: c => `Em ${c} / total:`,
     errorLoad:   'Erro ao carregar os dados:',
+    register:    'Registar o teu Puma',
     colorNames:  { rojo:'Vermelho', blanco:'Branco', gris:'Cinzento', plata:'Prata', azul:'Azul', verde:'Verde', negro:'Preto', amarillo:'Amarelo', naranja:'Laranja', 'marrón':'Castanho', 'azul imperial':'Azul Imperial', plateado:'Prateado' },
   },
 };
@@ -936,6 +963,7 @@ function applyTranslations() {
   document.getElementById('color-none').textContent = T.none;
   document.getElementById('motor-all').textContent  = T.all;
   document.getElementById('motor-none').textContent = T.none;
+  document.getElementById('register-link').textContent = T.register;
 }
 
 /* ═══════════════════════════════════════════════════════════
