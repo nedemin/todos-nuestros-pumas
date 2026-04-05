@@ -75,10 +75,12 @@ poetry run python scripts/update_from_sheets.py --dry-run
 
 La primera vez se abrirá el navegador para autenticarse con Google. El token se guarda en `~/.config/tpumas/authorized_user.json` y no hace falta volver a autenticarse.
 
-Después de actualizar el CSV, publicar los cambios:
+Si hay ciudades nuevas en los datos, el script las geocodifica automáticamente via Nominatim y actualiza `data/gazetteer.json`.
+
+Después de actualizar, publicar los cambios:
 
 ```bash
-git add data/pumas.csv
+git add data/pumas.csv data/gazetteer.json
 git commit -m "Actualiza datos del mapa"
 git push
 ```
