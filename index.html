@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Todos nuestros Pumas</title>
 
   <!-- Favicons -->
@@ -269,9 +269,9 @@
     /* ── Register link ──────────────────────────────────── */
     #register-link {
       position: absolute;
-      bottom: 24px;
-      left: 12px;
-      z-index: 900;
+      bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+      left: calc(12px + env(safe-area-inset-left, 0px));
+      z-index: 1000;
       background: #2c3e50;
       color: #fff;
       text-decoration: none;
