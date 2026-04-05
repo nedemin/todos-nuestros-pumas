@@ -234,6 +234,9 @@
     @media (max-width: 1024px) {
       #filters { max-width: 185px; }
       #legend  { max-width: 185px; }
+      #register-link {
+        bottom: calc(44px + env(safe-area-inset-bottom, 0px));
+      }
     }
 
     /* ── Responsive: mobile ─────────────────────────────────── */
@@ -269,7 +272,7 @@
     /* ── Register link ──────────────────────────────────── */
     #register-link {
       position: absolute;
-      bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+      bottom: calc(36px + env(safe-area-inset-bottom, 0px));
       left: calc(12px + env(safe-area-inset-left, 0px));
       z-index: 1000;
       background: #2c3e50;
