@@ -30,11 +30,16 @@ Uso:
 """
 
 import csv
+import json
 import sys
+import time
+import urllib.parse
+import urllib.request
 from pathlib import Path
 
 SHEET_ID     = "SHEET_ID_REMOVED_FROM_HISTORY"
 OUTPUT       = Path(__file__).resolve().parent.parent / "data" / "pumas.csv"
+GAZETTEER    = Path(__file__).resolve().parent.parent / "data" / "gazetteer.json"
 CONFIG_DIR   = Path.home() / ".config" / "tpumas"
 CREDENTIALS  = CONFIG_DIR / "credentials.json"
 TOKEN_PATH   = CONFIG_DIR / "authorized_user.json"
@@ -86,6 +91,53 @@ def process_rows(records: list[dict]) -> list[dict]:
     return output
 
 
+def geocode(ciudad: str, pais: str) -> tuple[float, float] | None:
+    """Consulta Nominatim para obtener coordenadas de una ciudad."""
+    query = urllib.parse.urlencode({"city": ciudad, "country": pais, "format": "json", "limit": 1})
+    url = f"https://nominatim.openstreetmap.org/search?{query}"
+    req = urllib.request.Request(url, headers={"User-Agent": "tpumas/1.0 (todosnuestrospumas.es)"})
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            results = json.loads(resp.read())
+        if results:
+            return round(float(results[0]["lat"]), 4), round(float(results[0]["lon"]), 4)
+    except Exception as e:
+        print(f"  ⚠ Error geocodificando '{ciudad}': {e}", file=sys.stderr)
+    return None
+
+
+def update_gazetteer(rows: list[dict], dry_run: bool = False) -> None:
+    """Añade al gazetteer las ciudades nuevas que no estén ya."""
+    gazetteer = json.loads(GAZETTEER.read_text(encoding="utf-8"))
+    missing = {(r["ciudad"], r["país"]) for r in rows if r["ciudad"] not in gazetteer}
+
+    if not missing:
+        return
+
+    added = []
+    for ciudad, pais in sorted(missing):
+        print(f"  Ciudad nueva: '{ciudad}' — consultando Nominatim...")
+        coords = geocode(ciudad, pais)
+        if coords:
+            lat, lon = coords
+            print(f"    → {lat}, {lon}")
+            if not dry_run:
+                gazetteer[ciudad] = {"lat": lat, "lon": lon}
+            added.append(ciudad)
+        else:
+            print(f"    ✗ No se encontraron coordenadas para '{ciudad}' ({pais})")
+        time.sleep(1)  # Nominatim: máx 1 req/seg
+
+    if added and not dry_run:
+        GAZETTEER.write_text(
+            json.dumps(gazetteer, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"✓ Gazetteer actualizado: {', '.join(added)}")
+    elif added and dry_run:
+        print(f"  (--dry-run) Se añadirían al gazetteer: {', '.join(added)}")
+
+
 def main() -> None:
     dry_run = "--dry-run" in sys.argv
 
@@ -130,6 +182,9 @@ def main() -> None:
 
     # ── Process ────────────────────────────────────────────
     rows = process_rows(records)
+
+    # ── Gazetteer ──────────────────────────────────────────
+    update_gazetteer(rows, dry_run=dry_run)
 
     if dry_run:
         print("\n── Vista previa (--dry-run, no se escribe nada) ──")
