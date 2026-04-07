@@ -510,6 +510,9 @@ function textColor(hex) {
 ═══════════════════════════════════════════════════════════ */
 const headerEl = document.getElementById('header');
 document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
+window.addEventListener('resize', () => {
+  document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
+});
 
 const map = L.map('map', { zoomControl: false }).setView([46, 10], 4);
 L.control.zoom({ position: window.innerWidth < 768 ? 'bottomright' : 'topleft' }).addTo(map);
@@ -974,6 +977,9 @@ function applyTranslations() {
   document.getElementById('motor-all').textContent  = T.all;
   document.getElementById('motor-none').textContent = T.none;
   document.getElementById('register-link').textContent = T.register;
+  // Recalcular altura del header ahora que tiene texto
+  const h = document.getElementById('header').offsetHeight;
+  document.documentElement.style.setProperty('--header-h', h + 'px');
 }
 
 /* ═══════════════════════════════════════════════════════════
