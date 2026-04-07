@@ -309,7 +309,7 @@
 </head>
 <body>
 
-<div id="header">Todos nuestros Pumas</div>
+<div id="header"></div>
 <div id="map">
   <a id="register-link" href="https://forms.gle/vXnN67LFQhfpu8HR6" target="_blank" rel="noopener"></a>
 </div>
@@ -371,6 +371,7 @@ const NOMINATIM_DELAY_MS = 1100;    // delay between Nominatim calls (ms)
 ═══════════════════════════════════════════════════════════ */
 const I18N = {
   es: {
+    title:       'Todos nuestros Pumas',
     loading:     'Cargando',
     filters:     'Filtros',
     legend:      'Leyenda',
@@ -390,6 +391,7 @@ const I18N = {
     colorNames:  { rojo:'Rojo', blanco:'Blanco', gris:'Gris', plata:'Plata', azul:'Azul', verde:'Verde', negro:'Negro', amarillo:'Amarillo', naranja:'Naranja', 'marrón':'Marrón', 'azul imperial':'Azul Imperial', plateado:'Plateado' },
   },
   en: {
+    title:       'All Our Pumas',
     loading:     'Loading',
     filters:     'Filters',
     legend:      'Legend',
@@ -409,6 +411,7 @@ const I18N = {
     colorNames:  { rojo:'Red', blanco:'White', gris:'Grey', plata:'Silver', azul:'Blue', verde:'Green', negro:'Black', amarillo:'Yellow', naranja:'Orange', 'marrón':'Brown', 'azul imperial':'Imperial Blue', plateado:'Silver' },
   },
   fr: {
+    title:       'Tous nos Pumas',
     loading:     'Chargement',
     filters:     'Filtres',
     legend:      'Légende',
@@ -428,6 +431,7 @@ const I18N = {
     colorNames:  { rojo:'Rouge', blanco:'Blanc', gris:'Gris', plata:'Argent', azul:'Bleu', verde:'Vert', negro:'Noir', amarillo:'Jaune', naranja:'Orange', 'marrón':'Marron', 'azul imperial':'Bleu impérial', plateado:'Argenté' },
   },
   de: {
+    title:       'Alle unsere Pumas',
     loading:     'Laden',
     filters:     'Filter',
     legend:      'Legende',
@@ -447,6 +451,7 @@ const I18N = {
     colorNames:  { rojo:'Rot', blanco:'Weiß', gris:'Grau', plata:'Silber', azul:'Blau', verde:'Grün', negro:'Schwarz', amarillo:'Gelb', naranja:'Orange', 'marrón':'Braun', 'azul imperial':'Kaiserblau', plateado:'Silber' },
   },
   pt: {
+    title:       'Todos os nossos Pumas',
     loading:     'A carregar',
     filters:     'Filtros',
     legend:      'Legenda',
@@ -955,6 +960,7 @@ function snapPosition(panel) {
    APPLY TRANSLATIONS  (static DOM elements)
 ═══════════════════════════════════════════════════════════ */
 function applyTranslations() {
+  document.getElementById('header').textContent                  = T.title;
   document.querySelector('#loading .loading-box p').textContent = T.loading;
   document.getElementById('filters-header').textContent         = T.filters;
   document.getElementById('legend-header').textContent          = T.legend;
