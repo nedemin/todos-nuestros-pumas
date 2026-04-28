@@ -13,11 +13,60 @@
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="theme-color" content="#2c3e50" />
 
+  <!-- SEO -->
+  <meta name="description" content="Mapa interactivo de Ford Pumas (1997-2001) del Club Ford Puma España. Localiza Ford Pumas por ciudad, color y motor. Registra el tuyo." />
+  <link rel="canonical" href="https://www.todosnuestrospumas.es/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"                content="website" />
+  <meta property="og:url"                 content="https://www.todosnuestrospumas.es/" />
+  <meta property="og:title"               content="Todos nuestros Pumas" />
+  <meta property="og:description"         content="Mapa interactivo de Ford Pumas (1997-2001) del Club Ford Puma España. Localiza Ford Pumas por ciudad, color y motor." />
+  <meta property="og:image"               content="https://www.todosnuestrospumas.es/android-chrome-512x512.png" />
+  <meta property="og:locale"              content="es_ES" />
+  <meta property="og:locale:alternate"    content="en_GB" />
+  <meta property="og:locale:alternate"    content="fr_FR" />
+  <meta property="og:locale:alternate"    content="de_DE" />
+  <meta property="og:locale:alternate"    content="pt_PT" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="Todos nuestros Pumas" />
+  <meta name="twitter:description" content="Mapa interactivo de Ford Pumas (1997-2001) del Club Ford Puma España." />
+  <meta name="twitter:image"       content="https://www.todosnuestrospumas.es/android-chrome-512x512.png" />
+
+  <!-- hreflang (multiidioma, misma URL) -->
+  <link rel="alternate" hreflang="es"        href="https://www.todosnuestrospumas.es/" />
+  <link rel="alternate" hreflang="en"        href="https://www.todosnuestrospumas.es/" />
+  <link rel="alternate" hreflang="fr"        href="https://www.todosnuestrospumas.es/" />
+  <link rel="alternate" hreflang="de"        href="https://www.todosnuestrospumas.es/" />
+  <link rel="alternate" hreflang="pt"        href="https://www.todosnuestrospumas.es/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.todosnuestrospumas.es/" />
+
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <!-- MarkerCluster CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Todos nuestros Pumas",
+    "url": "https://www.todosnuestrospumas.es/",
+    "description": "Mapa interactivo de Ford Pumas (1997-2001) del Club Ford Puma España. Localiza Ford Pumas por ciudad, color y motor.",
+    "applicationCategory": "Map",
+    "inLanguage": ["es", "en", "fr", "de", "pt"],
+    "isAccessibleForFree": true,
+    "about": {
+      "@type": "Thing",
+      "name": "Ford Puma",
+      "description": "Automóvil deportivo fabricado por Ford entre 1997 y 2001"
+    }
+  }
+  </script>
 
   <style>
     /* ── Reset & base ───────────────────────────────────── */
@@ -34,6 +83,7 @@
     }
 
     /* ── Header ─────────────────────────────────────────── */
+    #header h1 { font-size: inherit; font-weight: inherit; margin: 0; }
     #header {
       text-align: center;
       padding: 10px 0 8px;
@@ -309,7 +359,7 @@
 </head>
 <body>
 
-<div id="header"></div>
+<header id="header"><h1 id="header-h1"></h1></header>
 <div id="map">
   <a id="register-link" href="https://forms.gle/vXnN67LFQhfpu8HR6" target="_blank" rel="noopener"></a>
 </div>
@@ -388,6 +438,7 @@ const I18N = {
     ttCityTotal: c => `En ${c} / total:`,
     errorLoad:   'Error al cargar los datos:',
     register:    'Añade tu Puma',
+    description: 'Mapa interactivo de Ford Pumas (1997-2001) del Club Ford Puma España. Localiza Ford Pumas por ciudad, color y motor. Registra el tuyo.',
     colorNames:  { rojo:'Rojo', blanco:'Blanco', gris:'Gris', plata:'Plata', azul:'Azul', verde:'Verde', negro:'Negro', amarillo:'Amarillo', naranja:'Naranja', 'marrón':'Marrón', 'azul imperial':'Azul Imperial', plateado:'Plateado' },
   },
   en: {
@@ -408,6 +459,7 @@ const I18N = {
     ttCityTotal: c => `In ${c} / total:`,
     errorLoad:   'Error loading data:',
     register:    'Register your Puma',
+    description: 'Interactive map of Ford Pumas (1997–2001) from Club Ford Puma España. Find Ford Pumas by city, colour and engine. Register yours.',
     colorNames:  { rojo:'Red', blanco:'White', gris:'Grey', plata:'Silver', azul:'Blue', verde:'Green', negro:'Black', amarillo:'Yellow', naranja:'Orange', 'marrón':'Brown', 'azul imperial':'Imperial Blue', plateado:'Silver' },
   },
   fr: {
@@ -428,6 +480,7 @@ const I18N = {
     ttCityTotal: c => `À ${c}\u00a0/ total\u00a0:`,
     errorLoad:   'Erreur lors du chargement\u00a0:',
     register:    'Enregistrer votre Puma',
+    description: 'Carte interactive des Ford Puma (1997-2001) du Club Ford Puma España. Trouvez des Ford Pumas par ville, couleur et moteur. Enregistrez le vôtre.',
     colorNames:  { rojo:'Rouge', blanco:'Blanc', gris:'Gris', plata:'Argent', azul:'Bleu', verde:'Vert', negro:'Noir', amarillo:'Jaune', naranja:'Orange', 'marrón':'Marron', 'azul imperial':'Bleu impérial', plateado:'Argenté' },
   },
   de: {
@@ -448,6 +501,7 @@ const I18N = {
     ttCityTotal: c => `In ${c} / gesamt:`,
     errorLoad:   'Fehler beim Laden:',
     register:    'Deinen Puma registrieren',
+    description: 'Interaktive Karte der Ford Pumas (1997–2001) des Club Ford Puma España. Finde Ford Pumas nach Stadt, Farbe und Motor. Registriere deinen.',
     colorNames:  { rojo:'Rot', blanco:'Weiß', gris:'Grau', plata:'Silber', azul:'Blau', verde:'Grün', negro:'Schwarz', amarillo:'Gelb', naranja:'Orange', 'marrón':'Braun', 'azul imperial':'Kaiserblau', plateado:'Silber' },
   },
   pt: {
@@ -468,6 +522,7 @@ const I18N = {
     ttCityTotal: c => `Em ${c} / total:`,
     errorLoad:   'Erro ao carregar os dados:',
     register:    'Registar o teu Puma',
+    description: 'Mapa interativo de Ford Pumas (1997-2001) do Club Ford Puma España. Encontre Ford Pumas por cidade, cor e motor. Registe o seu.',
     colorNames:  { rojo:'Vermelho', blanco:'Branco', gris:'Cinzento', plata:'Prata', azul:'Azul', verde:'Verde', negro:'Preto', amarillo:'Amarelo', naranja:'Laranja', 'marrón':'Castanho', 'azul imperial':'Azul Imperial', plateado:'Prateado' },
   },
 };
@@ -963,7 +1018,7 @@ function snapPosition(panel) {
    APPLY TRANSLATIONS  (static DOM elements)
 ═══════════════════════════════════════════════════════════ */
 function applyTranslations() {
-  document.getElementById('header').textContent                  = T.title;
+  document.getElementById('header-h1').textContent               = T.title;
   document.querySelector('#loading .loading-box p').textContent = T.loading;
   document.getElementById('filters-header').textContent         = T.filters;
   document.getElementById('legend-header').textContent          = T.legend;
@@ -977,6 +1032,13 @@ function applyTranslations() {
   document.getElementById('motor-all').textContent  = T.all;
   document.getElementById('motor-none').textContent = T.none;
   document.getElementById('register-link').textContent = T.register;
+  // Meta tags y título dinámicos según idioma detectado
+  document.title = T.title;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', T.description);
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', T.title);
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', T.description);
+  document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', T.title);
+  document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', T.description);
   // Recalcular altura del header ahora que tiene texto
   const h = document.getElementById('header').offsetHeight;
   document.documentElement.style.setProperty('--header-h', h + 'px');
