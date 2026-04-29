@@ -1,10 +1,10 @@
 # Copyright (C) 2026  Nedemin
 # SPDX-License-Identifier: GPL-3.0-or-later
-# This file is part of Todos nuestros Pumas.
+# This file is part of Todos Nuestros Pumas.
 # See the LICENSE file in the project root for the full license text.
 
 """
-Servidor local para Todos nuestros Pumas.
+Servidor local para Todos Nuestros Pumas.
 
 Uso:
     poetry run serve [puerto]        # por defecto: 8080
@@ -36,7 +36,7 @@ def main() -> None:
     url = f"http://localhost:{port}"
 
     with http.server.HTTPServer(("", port), QuietHandler) as httpd:
-        print(f"Todos nuestros Pumas · {url}")
+        print(f"Todos Nuestros Pumas · {url}")
         print("Pulsa Ctrl+C para detener.\n")
         # Abrir el navegador en un hilo separado para no bloquear el servidor
         threading.Timer(0.5, webbrowser.open, args=[url]).start()

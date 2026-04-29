@@ -44,7 +44,7 @@ Página web estática que lee una lista de vehículos desde un archivo CSV y los
 
 ### Título
 
-- Texto **"Todos nuestros Pumas"** centrado en la parte superior de la página.
+- Texto **"Todos Nuestros Pumas"** centrado en la parte superior de la página.
 - El mismo texto en el `<title>` del HTML.
 
 ### Leyenda (panel derecho)
