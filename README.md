@@ -1,4 +1,4 @@
-# Todos nuestros Pumas
+# Todos Nuestros Pumas
 
 🌍 **Sitio web oficial: [www.todosnuestrospumas.es](https://www.todosnuestrospumas.es)**
 
@@ -100,7 +100,7 @@ function onFormSubmit(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
 
-  let body = "Nueva respuesta en el formulario de Todos nuestros Pumas:\n\n";
+  let body = "Nueva respuesta en el formulario de Todos Nuestros Pumas:\n\n";
   headers.forEach((header, i) => {
     body += `${header}: ${row[i] || "-"}\n`;
   });
