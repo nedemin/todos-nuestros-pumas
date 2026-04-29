@@ -36,13 +36,23 @@ Uso:
 
 import csv
 import json
+import os
 import sys
 import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
 
-SHEET_ID     = "SHEET_ID_REMOVED_FROM_HISTORY"
+# Carga .env si existe (sin dependencias externas)
+_env = Path(__file__).resolve().parent.parent / ".env"
+if _env.exists():
+    for _line in _env.read_text().splitlines():
+        _line = _line.strip()
+        if _line and not _line.startswith("#") and "=" in _line:
+            _k, _, _v = _line.partition("=")
+            os.environ.setdefault(_k.strip(), _v.strip())
+
+SHEET_ID = os.environ.get("SHEET_ID") or sys.exit("Error: define SHEET_ID en el archivo .env")
 OUTPUT       = Path(__file__).resolve().parent.parent / "data" / "pumas.csv"
 GAZETTEER    = Path(__file__).resolve().parent.parent / "data" / "gazetteer.json"
 CONFIG_DIR   = Path.home() / ".config" / "tpumas"
