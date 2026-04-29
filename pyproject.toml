@@ -1,7 +1,7 @@
 [project]
 name = "tpumas"
 version = "0.1.0"
-description = "Todos nuestros Pumas — servidor local"
+description = "Todos Nuestros Pumas — servidor local"
 authors = [
     {name = "n/a"}
 ]
