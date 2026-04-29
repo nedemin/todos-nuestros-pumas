@@ -8,7 +8,7 @@ Mapa interactivo de Ford Pumas (1997-2001) registrados en el Club Ford Puma Espa
 
 ## ¿Qué es esto?
 
-Página estática que lee una lista de vehículos desde un CSV y los ubica en un mapa con iconos coloreados según el color de cada coche. Incluye filtros por color y motor, leyenda dinámica y agrupación por clusters. Compatible con escritorio, tablet y móvil. La interfaz se adapta automáticamente al idioma del navegador (español, inglés, francés, alemán y portugués).
+Página estática que ubica Ford Pumas en un mapa con iconos coloreados según el color de cada coche. Incluye filtros por color y motor, leyenda dinámica y agrupación por clusters. Compatible con escritorio, tablet y móvil. La interfaz se adapta automáticamente al idioma del navegador (español, inglés, francés, alemán y portugués).
 
 ## Tecnologías
 
