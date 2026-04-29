@@ -18,3 +18,6 @@ token.json
 *.pem
 *.key
 service_account*.json
+
+# Variables de entorno
+.env
