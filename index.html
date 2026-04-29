@@ -96,6 +96,7 @@
 
     /* ── Header ─────────────────────────────────────────── */
     #header h1 { font-size: inherit; font-weight: inherit; margin: 0; }
+    #header-sub { font-size: 11px; opacity: 0.7; margin: 2px 0 0; }
     #header {
       text-align: center;
       padding: 10px 0 8px;
@@ -371,7 +372,7 @@
 </head>
 <body>
 
-<header id="header"><h1 id="header-h1"></h1></header>
+<header id="header"><h1 id="header-h1"></h1><p id="header-sub"></p></header>
 <div id="map">
   <a id="register-link" href="https://forms.gle/vXnN67LFQhfpu8HR6" target="_blank" rel="noopener"></a>
 </div>
@@ -454,6 +455,7 @@ const I18N = {
     ttCityTotal: c => `En ${c} / total:`,
     errorLoad:   'Error al cargar los datos:',
     register:    'Añade tu Puma',
+    subheading:  'Mapa interactivo · Ford Puma 1997-2002',
     description: 'Mapa interactivo de Ford Pumas (1997-2002). Localiza Ford Pumas por ciudad, color y motor. Registra el tuyo.',
     colorNames:  { rojo:'Rojo', blanco:'Blanco', gris:'Gris', plata:'Plata', azul:'Azul', verde:'Verde', negro:'Negro', amarillo:'Amarillo', naranja:'Naranja', 'marrón':'Marrón', 'azul imperial':'Azul Imperial', plateado:'Plateado' },
   },
@@ -475,6 +477,7 @@ const I18N = {
     ttCityTotal: c => `In ${c} / total:`,
     errorLoad:   'Error loading data:',
     register:    'Register your Puma',
+    subheading:  'Interactive map · Ford Puma 1997–2002',
     description: 'Interactive map of Ford Pumas (1997–2002). Find Ford Pumas by city, colour and engine. Register yours.',
     colorNames:  { rojo:'Red', blanco:'White', gris:'Grey', plata:'Silver', azul:'Blue', verde:'Green', negro:'Black', amarillo:'Yellow', naranja:'Orange', 'marrón':'Brown', 'azul imperial':'Imperial Blue', plateado:'Silver' },
   },
@@ -496,6 +499,7 @@ const I18N = {
     ttCityTotal: c => `À ${c}\u00a0/ total\u00a0:`,
     errorLoad:   'Erreur lors du chargement\u00a0:',
     register:    'Enregistrer votre Puma',
+    subheading:  'Carte interactive · Ford Puma 1997-2002',
     description: 'Carte interactive des Ford Puma (1997-2002). Trouvez des Ford Pumas par ville, couleur et moteur. Enregistrez le vôtre.',
     colorNames:  { rojo:'Rouge', blanco:'Blanc', gris:'Gris', plata:'Argent', azul:'Bleu', verde:'Vert', negro:'Noir', amarillo:'Jaune', naranja:'Orange', 'marrón':'Marron', 'azul imperial':'Bleu impérial', plateado:'Argenté' },
   },
@@ -517,6 +521,7 @@ const I18N = {
     ttCityTotal: c => `In ${c} / gesamt:`,
     errorLoad:   'Fehler beim Laden:',
     register:    'Deinen Puma registrieren',
+    subheading:  'Interaktive Karte · Ford Puma 1997–2002',
     description: 'Interaktive Karte der Ford Pumas (1997–2002). Finde Ford Pumas nach Stadt, Farbe und Motor. Registriere deinen.',
     colorNames:  { rojo:'Rot', blanco:'Weiß', gris:'Grau', plata:'Silber', azul:'Blau', verde:'Grün', negro:'Schwarz', amarillo:'Gelb', naranja:'Orange', 'marrón':'Braun', 'azul imperial':'Kaiserblau', plateado:'Silber' },
   },
@@ -538,6 +543,7 @@ const I18N = {
     ttCityTotal: c => `Em ${c} / total:`,
     errorLoad:   'Erro ao carregar os dados:',
     register:    'Registar o teu Puma',
+    subheading:  'Mapa interativo · Ford Puma 1997-2002',
     description: 'Mapa interativo de Ford Pumas (1997-2002). Encontre Ford Pumas por cidade, cor e motor. Registe o seu.',
     colorNames:  { rojo:'Vermelho', blanco:'Branco', gris:'Cinzento', plata:'Prata', azul:'Azul', verde:'Verde', negro:'Preto', amarillo:'Amarelo', naranja:'Laranja', 'marrón':'Castanho', 'azul imperial':'Azul Imperial', plateado:'Prateado' },
   },
@@ -1048,12 +1054,10 @@ function applyTranslations() {
   document.getElementById('motor-all').textContent  = T.all;
   document.getElementById('motor-none').textContent = T.none;
   document.getElementById('register-link').textContent = T.register;
-  // Meta tags y título dinámicos según idioma detectado
-  document.title = T.title;
+  document.getElementById('header-sub').textContent    = T.subheading;
+  // Descripción dinámica según idioma (el título se mantiene estático en español para SEO)
   document.querySelector('meta[name="description"]')?.setAttribute('content', T.description);
-  document.querySelector('meta[property="og:title"]')?.setAttribute('content', T.title);
   document.querySelector('meta[property="og:description"]')?.setAttribute('content', T.description);
-  document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', T.title);
   document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', T.description);
   // Recalcular altura del header ahora que tiene texto
   const h = document.getElementById('header').offsetHeight;
