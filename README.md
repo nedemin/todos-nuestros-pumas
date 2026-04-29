@@ -109,3 +109,12 @@ function onFormSubmit(e) {
 ```
 
 Actívalo en **Activadores → Al enviar el formulario**.
+
+## Licencia
+
+Copyright (C) 2026 Nedemin
+
+Este proyecto se distribuye bajo la licencia **GNU General Public License v3.0 o posterior**.
+Puedes copiarlo, modificarlo y distribuirlo siempre que mantengas la misma licencia en los trabajos derivados.
+
+Ver el archivo [LICENSE](LICENSE) para el texto completo.
