@@ -55,12 +55,17 @@ Los datos se recogen a través de un formulario de Google Forms (enlace visible 
 
 ### Configuración inicial (solo la primera vez)
 
-1. Entra en [console.cloud.google.com](https://console.cloud.google.com)
-2. Activa la **Google Sheets API** en tu proyecto
-3. Crea credenciales: **OAuth client ID → Desktop app**
-4. Descarga el JSON y guárdalo en `~/.config/tpumas/credentials.json`
+1. Copia `.env.example` a `.env` y rellena el valor:
+   ```bash
+   cp .env.example .env
+   # edita .env y añade el SHEET_ID de tu hoja de Google Sheets
+   ```
+2. Entra en [console.cloud.google.com](https://console.cloud.google.com)
+3. Activa la **Google Sheets API** en tu proyecto
+4. Crea credenciales: **OAuth client ID → Desktop app**
+5. Descarga el JSON y guárdalo en `~/.config/tpumas/credentials.json`
 
-> ⚠️ Nunca subas `credentials.json` ni ningún token al repositorio.
+> ⚠️ Nunca subas `.env`, `credentials.json` ni ningún token al repositorio.
 > El `.gitignore` ya los excluye como medida de seguridad adicional.
 
 ### Ejecución
