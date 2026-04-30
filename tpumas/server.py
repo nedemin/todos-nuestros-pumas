@@ -35,7 +35,7 @@ def main() -> None:
 
     url = f"http://localhost:{port}"
 
-    with http.server.HTTPServer(("", port), QuietHandler) as httpd:
+    with http.server.HTTPServer(("127.0.0.1", port), QuietHandler) as httpd:
         print(f"Todos Nuestros Pumas · {url}")
         print("Pulsa Ctrl+C para detener.\n")
         # Abrir el navegador en un hilo separado para no bloquear el servidor
