@@ -234,13 +234,34 @@ let clusterGroup  = null;
 /* ═══════════════════════════════════════════════════════════
    CSV PARSER
 ═══════════════════════════════════════════════════════════ */
+function parseCSVLine(line) {
+  const vals = [];
+  let cur = '', inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"' && line[i + 1] === '"') { cur += '"'; i++; }
+      else if (ch === '"') { inQuotes = false; }
+      else { cur += ch; }
+    } else {
+      if (ch === '"') { inQuotes = true; }
+      else if (ch === ',') { vals.push(cur.trim()); cur = ''; }
+      else { cur += ch; }
+    }
+  }
+  vals.push(cur.trim());
+  return vals;
+}
+
+const BLOCKED_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
+
 function parseCSV(text) {
   const lines = text.trim().split('\n');
-  const headers = lines[0].split(',').map(h => h.trim());
-  return lines.slice(1).map(line => {
-    const vals = line.split(',').map(v => v.trim());
+  const headers = parseCSVLine(lines[0]);
+  return lines.slice(1).filter(l => l.trim()).map(line => {
+    const vals = parseCSVLine(line);
     const obj = Object.create(null);
-    headers.forEach((h, i) => { if (h && !['__proto__','constructor','prototype'].includes(h)) obj[h] = vals[i] || ''; });
+    headers.forEach((h, i) => { if (h && !BLOCKED_KEYS.has(h)) obj[h] = vals[i] || ''; });
     return obj;
   });
 }
