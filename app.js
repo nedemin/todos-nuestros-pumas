@@ -277,12 +277,12 @@ async function resolveCoords(city, country, gazetteer) {
   await sleep(NOMINATIM_DELAY_MS);
   try {
     const q = encodeURIComponent(`${city}, ${country}`);
-    const url = `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&accept-language=es`;
-    const res  = await fetch(url, { signal: AbortSignal.timeout(5000), headers: { 'User-Agent': 'TodosNuestrosPumas/1.0' } });
+    const url = `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&accept-language=es&email=todosnuestrospumas.es`;
+    const res  = await fetch(url, { signal: AbortSignal.timeout(5000) });
     const data = await res.json();
     if (data.length > 0) {
       const lat = parseFloat(data[0].lat), lon = parseFloat(data[0].lon);
-      if (isFinite(lat) && isFinite(lon)) {
+      if (isFinite(lat) && isFinite(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180) {
         const coords = { lat, lon };
         gazetteer[city] = coords;
         return coords;
