@@ -281,11 +281,14 @@ async function resolveCoords(city, country, gazetteer) {
     const res  = await fetch(url, { headers: { 'User-Agent': 'TodosNuestrosPumas/1.0' } });
     const data = await res.json();
     if (data.length > 0) {
-      const coords = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
-      gazetteer[city] = coords;   // cache for the session
-      return coords;
+      const lat = parseFloat(data[0].lat), lon = parseFloat(data[0].lon);
+      if (isFinite(lat) && isFinite(lon)) {
+        const coords = { lat, lon };
+        gazetteer[city] = coords;
+        return coords;
+      }
     }
-  } catch(e) { console.warn('Nominatim error:', e); }
+  } catch(e) { console.warn('Nominatim unavailable'); }
   return null;
 }
 
