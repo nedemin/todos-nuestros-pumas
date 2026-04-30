@@ -22,7 +22,9 @@ Página estática que ubica Ford Pumas en un mapa con iconos coloreados según e
 
 ```
 /
-├── index.html                     # Aplicación completa (HTML + CSS + JS)
+├── index.html                     # Página principal (HTML + CSS)
+├── static/
+│   └── app.js                     # Lógica de la aplicación (JS)
 ├── CNAME                          # Dominio personalizado para GitHub Pages
 ├── site.webmanifest               # Manifiesto PWA
 ├── favicon.ico / favicon-*.png    # Favicons
@@ -31,6 +33,8 @@ Página estática que ubica Ford Pumas en un mapa con iconos coloreados según e
 ├── data/
 │   ├── pumas.csv                  # Lista pública de vehículos (ciudad, país, motor, color)
 │   └── gazetteer.json             # Base de datos offline de coordenadas por ciudad
+├── docs/
+│   └── SPECS.md                   # Especificaciones técnicas (generación de iconos, colores)
 ├── icons/
 │   └── puma_[color].png           # Iconos del coche por color
 └── scripts/
@@ -47,6 +51,13 @@ Requiere [Poetry](https://python-poetry.org/).
 poetry install
 poetry run serve        # abre http://localhost:8080
 poetry run serve 9000   # puerto alternativo
+```
+
+Para regenerar los iconos PNG (solo si se añaden colores nuevos):
+
+```bash
+poetry install --extras icons   # instala numpy y Pillow
+poetry run python scripts/gen_icons.py
 ```
 
 ## Actualizar los datos del mapa
