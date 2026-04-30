@@ -201,9 +201,16 @@ def main() -> None:
     # ── Gazetteer ──────────────────────────────────────────
     update_gazetteer(rows, dry_run=dry_run)
 
+    # Filtrar filas cuya ciudad no tiene coordenadas (evita DoS client-side)
+    gazetteer = json.loads(GAZETTEER.read_text(encoding="utf-8"))
+    rows_ok = [r for r in rows if r["ciudad"] in gazetteer]
+    skipped_geo = len(rows) - len(rows_ok)
+    if skipped_geo:
+        print(f"  {skipped_geo} fila(s) omitida(s) por ciudad sin coordenadas")
+
     if dry_run:
         print("\n── Vista previa (--dry-run, no se escribe nada) ──")
-        for r in rows:
+        for r in rows_ok:
             print(f"  {r}")
         return
 
@@ -211,9 +218,9 @@ def main() -> None:
     with OUTPUT.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["ciudad", "país", "motor", "color"])
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows(rows_ok)
 
-    print(f"✓ {len(rows)} filas escritas en {OUTPUT}")
+    print(f"✓ {len(rows_ok)} filas escritas en {OUTPUT}")
 
 
 if __name__ == "__main__":
