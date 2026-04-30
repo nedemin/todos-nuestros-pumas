@@ -8,6 +8,9 @@ authors = [
 requires-python = ">=3.10"
 dependencies = ["gspread (>=6.2.1,<7.0.0)", "cryptography (>=47.0.0)"]
 
+[project.optional-dependencies]
+icons = ["numpy>=1.24", "Pillow>=11.0"]
+
 [project.scripts]
 serve = "tpumas.server:main"
 

@@ -9,7 +9,7 @@ Genera los iconos PNG de colores para la carpeta /icons.
 Toma puma_plateado.png como silueta base (escala de grises neutra) y
 recoloriza cada píxel visible aplicando el color destino sobre la
 luminancia original con corrección gamma (γ = 0.85) y realce de
-brillos especulares, tal como describe SPECS.md.
+brillos especulares, tal como describe docs/SPECS.md.
 
 El resultado se guarda a 120×48 px (2× retina); Leaflet lo renderiza
 a 60×24 px CSS.
