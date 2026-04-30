@@ -239,8 +239,8 @@ function parseCSV(text) {
   const headers = lines[0].split(',').map(h => h.trim());
   return lines.slice(1).map(line => {
     const vals = line.split(',').map(v => v.trim());
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = vals[i] || '');
+    const obj = Object.create(null);
+    headers.forEach((h, i) => { if (h && !['__proto__','constructor','prototype'].includes(h)) obj[h] = vals[i] || ''; });
     return obj;
   });
 }
