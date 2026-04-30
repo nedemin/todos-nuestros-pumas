@@ -725,6 +725,12 @@ const COLOR_MAP = {
   marrón:  '#8d6e63',
 };
 function colorCSS(c) { return COLOR_MAP[c.toLowerCase()] || '#888'; }
+function escapeHTML(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+    .replace(/'/g,'&#x27;');
+}
 
 /* Contrast-aware text color */
 function textColor(hex) {
@@ -838,8 +844,9 @@ function makePumaIcon(color) {
   const txt  = textColor(css);
 
   if (USE_PNG_ICONS) {
+    const safeColor = COLOR_MAP[color.toLowerCase()] ? color.toLowerCase().replace(/\s+/g, '_') : 'plateado';
     return L.icon({
-      iconUrl:    `/icons/puma_${color.toLowerCase().replace(/\s+/g, '_')}.png`,
+      iconUrl:    `/icons/puma_${safeColor}.png`,
       iconSize:   [60, 24],
       iconAnchor: [30, 24],
       popupAnchor:[0, -26],
@@ -934,23 +941,23 @@ function makeTooltipContent(vehicle, allVehicles) {
   Object.keys(cityByColor).sort().forEach(col => {
     const colCSS = colorCSS(col);
     countsHtml += `<div class="tt-row">
-      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${colCSS};border:1px solid rgba(0,0,0,0.2);vertical-align:middle;margin-right:3px"></span>${translateColor(col)}:</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${colCSS};border:1px solid rgba(0,0,0,0.2);vertical-align:middle;margin-right:3px"></span>${escapeHTML(translateColor(col))}:</span>
       <span>(${cityByColor[col]||0} / ${totalByColor[col]||0})</span>
     </div>`;
   });
 
   return `
     <div>
-      <div class="tt-row"><b>${T.ttMotor}:</b><span>${vehicle.motor}</span></div>
+      <div class="tt-row"><b>${T.ttMotor}:</b><span>${escapeHTML(vehicle.motor)}</span></div>
       <div class="tt-row"><b>${T.ttColor}:</b>
         <span style="display:inline-flex;align-items:center;gap:4px">
           <span style="width:12px;height:12px;border-radius:50%;background:${cc};border:1px solid rgba(0,0,0,0.2);display:inline-block"></span>
-          ${translateColor(vehicle.color)}
+          ${escapeHTML(translateColor(vehicle.color))}
         </span>
       </div>
-      <div class="tt-row"><b>${T.ttCity}:</b><span>${vehicle.ciudad}</span></div>
+      <div class="tt-row"><b>${T.ttCity}:</b><span>${escapeHTML(vehicle.ciudad)}</span></div>
       <div class="tt-counts">
-        <div style="font-size:11px;color:#888;margin-bottom:3px">${T.ttCityTotal(vehicle.ciudad)}</div>
+        <div style="font-size:11px;color:#888;margin-bottom:3px">${T.ttCityTotal(escapeHTML(vehicle.ciudad))}</div>
         ${countsHtml}
       </div>
     </div>`.trim();
@@ -1032,13 +1039,13 @@ function renderLegend() {
       <div class="legend-color-title">
         <span class="legend-color-name">
           <span class="legend-color-swatch" style="background:${css}"></span>
-          <span>${translateColor(color)}</span>
+          <span>${escapeHTML(translateColor(color))}</span>
         </span>
         <span>${T.total}: <b>${total}</b></span>
       </div>`;
     Object.entries(byColor[color]).sort().forEach(([motor, count]) => {
       html += `<div class="legend-motor-row">
-        <span>${motor}</span><span><b>${count}</b></span>
+        <span>${escapeHTML(motor)}</span><span><b>${count}</b></span>
       </div>`;
     });
     html += '</div>';
