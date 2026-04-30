@@ -779,7 +779,8 @@ async function main() {
   // Attach coords to vehicles
   allVehicles = vehicles.map(v => {
     const coords = gazetteer[v.ciudad] || null;
-    return coords ? { ...v, lat: coords.lat, lon: coords.lon } : null;
+    if (!coords || !isFinite(coords.lat) || !isFinite(coords.lon)) return null;
+    return { ...v, lat: coords.lat, lon: coords.lon };
   }).filter(Boolean);
 
   // Build UI (renderLegend is called inside renderMarkers)

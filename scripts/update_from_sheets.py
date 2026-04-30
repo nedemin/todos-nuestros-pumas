@@ -36,6 +36,7 @@ Uso:
 
 import csv
 import json
+import math
 import os
 import sys
 import time
@@ -115,7 +116,10 @@ def geocode(ciudad: str, pais: str) -> tuple[float, float] | None:
         with urllib.request.urlopen(req, timeout=10) as resp:
             results = json.loads(resp.read())
         if results:
-            return round(float(results[0]["lat"]), 4), round(float(results[0]["lon"]), 4)
+            lat = round(float(results[0]["lat"]), 4)
+            lon = round(float(results[0]["lon"]), 4)
+            if math.isfinite(lat) and math.isfinite(lon) and -90 <= lat <= 90 and -180 <= lon <= 180:
+                return lat, lon
     except Exception as e:
         print(f"  ⚠ Error geocodificando '{ciudad}': {e}", file=sys.stderr)
     return None
