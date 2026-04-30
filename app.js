@@ -296,7 +296,9 @@ function makePumaIcon(color) {
   const txt  = textColor(css);
 
   if (USE_PNG_ICONS) {
-    const safeColor = COLOR_MAP[color.toLowerCase()] ? color.toLowerCase().replace(/\s+/g, '_') : 'plateado';
+    const safeColor = COLOR_MAP[color.toLowerCase()]
+      ? color.toLowerCase().replace(/\s+/g, '_').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      : 'rojo';
     return L.icon({
       iconUrl:    `/icons/puma_${safeColor}.png`,
       iconSize:   [60, 24],
@@ -804,5 +806,5 @@ async function main() {
 main().catch(err => {
   console.error(err);
   document.getElementById('loading').classList.add('hidden');
-  alert(T.errorLoad + ' ' + err.message);
+  alert(T.errorLoad);
 });

@@ -43,9 +43,11 @@ COLORS: dict[str, tuple[int, int, int]] = {
 
 # Aliases: usan el mismo PNG que otro color
 ALIASES: dict[str, str] = {
-    "gris":  "plateado",   # gris ≈ plateado
-    "plata": "plateado",   # plata ≈ plateado
-    "azul":  "azul_imperial",
+    "gris":    "plateado",      # gris ≈ plateado
+    "plata":   "plateado",      # plata ≈ plateado
+    "azul":    "azul_imperial",
+    "naranja": "rojo",          # sin icono propio → fallback rojo
+    "marron":  "rojo",          # marrón (sin acento en nombre de archivo) → fallback rojo
 }
 
 
