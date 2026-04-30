@@ -26,7 +26,7 @@ import sys
 from pathlib import Path
 
 # ── Rutas por defecto ──────────────────────────────────────────────────────────
-DEFAULT_INPUT  = Path("~/puma-locations/car_list.csv")
+DEFAULT_INPUT  = Path.home() / "puma-locations" / "car_list.csv"
 DEFAULT_OUTPUT = Path(__file__).resolve().parent.parent / "data" / "pumas.csv"
 
 # ── Ciudad → país (todo España salvo excepciones) ──────────────────────────────
