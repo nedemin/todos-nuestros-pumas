@@ -6,7 +6,7 @@ authors = [
     {name = "n/a"}
 ]
 requires-python = ">=3.10"
-dependencies = ["gspread (>=6.2.1,<7.0.0)", "cryptography (>=44.0.1)"]
+dependencies = ["gspread (>=6.2.1,<7.0.0)", "cryptography (>=47.0.0)"]
 
 [project.scripts]
 serve = "tpumas.server:main"
