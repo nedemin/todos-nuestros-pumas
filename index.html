@@ -99,7 +99,7 @@
     #header-sub { font-size: 11px; opacity: 0.7; margin: 2px 0 0; }
     #header {
       text-align: center;
-      padding: 10px 0 8px;
+      padding: 10px 44px 8px;
       background: #2c3e50;
       color: #ecf0f1;
       font-size: 20px;
@@ -108,6 +108,104 @@
       flex-shrink: 0;
       z-index: 1000;
       position: relative;
+    }
+    #info-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px; height: 20px;
+      background: none;
+      border: 1.5px solid rgba(236,240,241,0.55);
+      color: #ecf0f1;
+      border-radius: 50%;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: bold;
+      font-family: Georgia, serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    #info-btn::after {
+      content: '';
+      position: absolute;
+      inset: -12px;
+    }
+    #info-btn:hover { background: rgba(255,255,255,0.15); }
+
+    /* ── Info modal ──────────────────────────────────────── */
+    #info-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #info-overlay.open { display: flex; }
+    #info-modal {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+      width: min(90vw, 480px);
+      max-height: 85dvh;
+      overflow-y: auto;
+      position: relative;
+      padding: 28px 24px 24px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #333;
+    }
+    #info-modal-icon {
+      display: block;
+      width: 72px;
+      height: auto;
+      margin: 0 auto 18px;
+    }
+    #info-modal h2 {
+      font-size: 1em;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 0 0 6px;
+    }
+    #info-modal p { margin: 0 0 14px; }
+    #info-modal section { margin-bottom: 4px; }
+    #info-modal section + section {
+      border-top: 1px solid #eee;
+      padding-top: 14px;
+    }
+    #info-close {
+      position: absolute;
+      top: 6px; right: 6px;
+      width: 44px; height: 44px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #888;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+    }
+    #info-close:hover { background: #f0f0f0; color: #333; }
+
+    /* TV: pantallas muy grandes */
+    @media (min-width: 1600px) {
+      #info-modal { width: min(90vw, 580px); font-size: 17px; }
+      #info-modal-icon { width: 90px; }
+      #info-btn { width: 34px; height: 34px; font-size: 17px; }
+    }
+    /* Landscape en móvil: altura limitada */
+    @media (max-height: 500px) {
+      #info-modal-icon { display: none; }
+      #info-modal { padding: 14px 20px 16px; font-size: 13px; }
     }
 
     /* ── Map ─────────────────────────────────────────────── */
@@ -372,7 +470,31 @@
 </head>
 <body>
 
-<header id="header"><h1 id="header-h1"></h1><p id="header-sub"></p></header>
+<header id="header">
+  <h1 id="header-h1"></h1>
+  <p id="header-sub"></p>
+  <button id="info-btn" aria-label="Información">i</button>
+</header>
+
+<!-- Info modal -->
+<div id="info-overlay" role="dialog" aria-modal="true" aria-labelledby="info-title-1">
+  <div id="info-modal">
+    <button id="info-close" aria-label="Cerrar">✕</button>
+    <img id="info-modal-icon" src="/icons/puma_rojo.png" alt="Ford Puma" />
+    <section>
+      <h2 id="info-title-1"></h2>
+      <p id="info-body-1"></p>
+    </section>
+    <section>
+      <h2 id="info-title-2"></h2>
+      <p id="info-body-2"></p>
+    </section>
+    <section>
+      <h2 id="info-title-3"></h2>
+      <p id="info-body-3"></p>
+    </section>
+  </div>
+</div>
 <div id="map">
   <a id="register-link" href="https://forms.gle/vXnN67LFQhfpu8HR6" target="_blank" rel="noopener"></a>
 </div>
@@ -457,6 +579,12 @@ const I18N = {
     register:    'Añade tu Puma',
     subheading:  'Mapa interactivo · Ford Puma 1997-2002',
     description: 'Mapa interactivo de Ford Pumas (1997-2002). Localiza Ford Pumas por ciudad, color y motor. Registra el tuyo.',
+    infoTitle1:  'Sobre este mapa',
+    infoBody1:   'Este mapa colaborativo recoge la ubicación de Ford Pumas (1997-2002) registrados por sus propietarios en todo el mundo. Cada icono representa un coche real. Su color corresponde al color del vehículo. Usa los paneles de filtros y leyenda para explorar los datos.',
+    infoTitle2:  '¿Qué es un Ford Puma?',
+    infoBody2:   'El Ford Puma es un coupé deportivo compacto fabricado por Ford Europa entre 1997 y 2002. Basado en la plataforma del Ford Fiesta, se ofreció con tres motores: el 1.4, el 1.6 y el 1.7 de 125 CV — este último especialmente valorado por su respuesta y sonido. Ligero, ágil y con un diseño que ha envejecido muy bien, el Puma se ganó una legión de seguidores que hoy lo consideran uno de los deportivos asequibles más divertidos de conducir de su época.',
+    infoTitle3:  '¿Tienes un Ford Puma (1997-2002)?',
+    infoBody3:   'Pulsa «Añade tu Puma» para registrar el tuyo. Solo se registra la ciudad — nunca se publican datos personales ni la dirección exacta.',
     colorNames:  { rojo:'Rojo', blanco:'Blanco', gris:'Gris', plata:'Plata', azul:'Azul', verde:'Verde', negro:'Negro', amarillo:'Amarillo', naranja:'Naranja', 'marrón':'Marrón', 'azul imperial':'Azul Imperial', plateado:'Plateado' },
   },
   en: {
@@ -479,6 +607,12 @@ const I18N = {
     register:    'Register your Puma',
     subheading:  'Interactive map · Ford Puma 1997–2002',
     description: 'Interactive map of Ford Pumas (1997–2002). Find Ford Pumas by city, colour and engine. Register yours.',
+    infoTitle1:  'About this map',
+    infoBody1:   'A collaborative map collecting the location of Ford Pumas (1997-2002) registered by their owners around the world. Each icon represents a real car. Its colour matches the vehicle\'s colour. Use the filter and legend panels to explore the data.',
+    infoTitle2:  'What is a Ford Puma?',
+    infoBody2:   'The Ford Puma is a compact sports coupé manufactured by Ford Europe between 1997 and 2002. Based on the Ford Fiesta platform, it was offered with three engines: the 1.4, the 1.6, and the 1.7 with 125 bhp — the latter particularly valued for its response and sound. Light, agile and with a design that has aged very well, the Puma won a legion of fans who today consider it one of the most enjoyable affordable sports cars of its era.',
+    infoTitle3:  'Do you own a Ford Puma (1997–2002)?',
+    infoBody3:   'Tap «Register your Puma» to add yours to the map. Only the city is recorded — no personal data or exact address is ever published.',
     colorNames:  { rojo:'Red', blanco:'White', gris:'Grey', plata:'Silver', azul:'Blue', verde:'Green', negro:'Black', amarillo:'Yellow', naranja:'Orange', 'marrón':'Brown', 'azul imperial':'Imperial Blue', plateado:'Silver' },
   },
   fr: {
@@ -501,6 +635,12 @@ const I18N = {
     register:    'Enregistrer votre Puma',
     subheading:  'Carte interactive · Ford Puma 1997-2002',
     description: 'Carte interactive des Ford Puma (1997-2002). Trouvez des Ford Pumas par ville, couleur et moteur. Enregistrez le vôtre.',
+    infoTitle1:  'À propos de cette carte',
+    infoBody1:   'Une carte collaborative qui recense la localisation des Ford Puma (1997-2002) enregistrées par leurs propriétaires dans le monde entier. Chaque icône représente une vraie voiture. Sa couleur correspond à celle du véhicule. Utilisez les panneaux de filtres et de légende pour explorer les données.',
+    infoTitle2:  'Qu\'est-ce qu\'une Ford Puma ?',
+    infoBody2:   'La Ford Puma est un coupé sportif compact fabriqué par Ford Europe entre 1997 et 2002. Basée sur la plateforme de la Ford Fiesta, elle était proposée avec trois motorisations : le 1.4, le 1.6 et le 1.7 de 125 ch — ce dernier particulièrement apprécié pour ses réponses et son sonorité. Légère, agile et avec un design qui a très bien vieilli, la Puma s\'est fait une légion de fans qui la considèrent aujourd\'hui comme l\'une des sportives abordables les plus amusantes à conduire de son époque.',
+    infoTitle3:  'Vous avez une Ford Puma (1997-2002) ?',
+    infoBody3:   'Appuyez sur « Enregistrer votre Puma » pour l\'ajouter à la carte. Seule la ville est enregistrée — aucune donnée personnelle ni adresse exacte n\'est jamais publiée.',
     colorNames:  { rojo:'Rouge', blanco:'Blanc', gris:'Gris', plata:'Argent', azul:'Bleu', verde:'Vert', negro:'Noir', amarillo:'Jaune', naranja:'Orange', 'marrón':'Marron', 'azul imperial':'Bleu impérial', plateado:'Argenté' },
   },
   de: {
@@ -523,6 +663,12 @@ const I18N = {
     register:    'Deinen Puma registrieren',
     subheading:  'Interaktive Karte · Ford Puma 1997–2002',
     description: 'Interaktive Karte der Ford Pumas (1997–2002). Finde Ford Pumas nach Stadt, Farbe und Motor. Registriere deinen.',
+    infoTitle1:  'Über diese Karte',
+    infoBody1:   'Eine kollaborative Karte, die den Standort von Ford Pumas (1997-2002) sammelt, die von ihren Besitzern weltweit registriert wurden. Jedes Symbol steht für ein echtes Auto. Seine Farbe entspricht der Fahrzeugfarbe. Nutze die Filter- und Legendenpanels, um die Daten zu erkunden.',
+    infoTitle2:  'Was ist ein Ford Puma?',
+    infoBody2:   'Der Ford Puma ist ein kompaktes Sportcoupé, das von Ford Europa zwischen 1997 und 2002 hergestellt wurde. Basierend auf der Ford Fiesta-Plattform wurde er mit drei Motoren angeboten: dem 1.4, dem 1.6 und dem 1.7 mit 125 PS — letzterer besonders wegen seiner Reaktionsfähigkeit und seines Klangs geschätzt. Leicht, agil und mit einem Design, das sehr gut gealtert ist, gewann der Puma eine Fangemeinde, die ihn heute als einen der spaßigsten erschwinglichen Sportwagen seiner Ära betrachtet.',
+    infoTitle3:  'Hast du einen Ford Puma (1997–2002)?',
+    infoBody3:   'Tippe auf «Deinen Puma registrieren», um ihn zur Karte hinzuzufügen. Nur die Stadt wird erfasst — persönliche Daten oder genaue Adressen werden nie veröffentlicht.',
     colorNames:  { rojo:'Rot', blanco:'Weiß', gris:'Grau', plata:'Silber', azul:'Blau', verde:'Grün', negro:'Schwarz', amarillo:'Gelb', naranja:'Orange', 'marrón':'Braun', 'azul imperial':'Kaiserblau', plateado:'Silber' },
   },
   pt: {
@@ -545,6 +691,12 @@ const I18N = {
     register:    'Registar o teu Puma',
     subheading:  'Mapa interativo · Ford Puma 1997-2002',
     description: 'Mapa interativo de Ford Pumas (1997-2002). Encontre Ford Pumas por cidade, cor e motor. Registe o seu.',
+    infoTitle1:  'Sobre este mapa',
+    infoBody1:   'Um mapa colaborativo que reúne a localização de Ford Pumas (1997-2002) registados pelos seus proprietários em todo o mundo. Cada ícone representa um carro real. A sua cor corresponde à cor do veículo. Use os painéis de filtros e legenda para explorar os dados.',
+    infoTitle2:  'O que é um Ford Puma?',
+    infoBody2:   'O Ford Puma é um coupé desportivo compacto fabricado pela Ford Europa entre 1997 e 2002. Baseado na plataforma do Ford Fiesta, foi oferecido com três motores: o 1.4, o 1.6 e o 1.7 de 125 CV — este último especialmente valorizado pela sua resposta e som. Leve, ágil e com um design que envelheceu muito bem, o Puma conquistou uma legião de fãs que hoje o consideram um dos desportivos acessíveis mais divertidos de conduzir da sua época.',
+    infoTitle3:  'Tens um Ford Puma (1997-2002)?',
+    infoBody3:   'Prime «Registar o teu Puma» para adicionar o teu ao mapa. Apenas a cidade é registada — nunca são publicados dados pessoais nem a morada exacta.',
     colorNames:  { rojo:'Vermelho', blanco:'Branco', gris:'Cinzento', plata:'Prata', azul:'Azul', verde:'Verde', negro:'Preto', amarillo:'Amarelo', naranja:'Laranja', 'marrón':'Castanho', 'azul imperial':'Azul Imperial', plateado:'Prateado' },
   },
 };
@@ -587,8 +739,22 @@ function textColor(hex) {
 ═══════════════════════════════════════════════════════════ */
 const headerEl = document.getElementById('header');
 document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
+let _prevPortrait = window.innerHeight > window.innerWidth;
 window.addEventListener('resize', () => {
   document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
+  const isPortrait = window.innerHeight > window.innerWidth;
+  if (isPortrait !== _prevPortrait) {
+    _prevPortrait = isPortrait;
+    ['filters', 'legend'].forEach(id => {
+      const p = document.getElementById(id);
+      if (p && !p.dataset.userDragged) {
+        p.style.left = '';
+        p.style.top  = '';
+        p.style.right = '';
+        p.style.transform = '';
+      }
+    });
+  }
 });
 
 const map = L.map('map', { zoomControl: false }).setView([46, 10], 4);
@@ -958,6 +1124,7 @@ function makeDraggable(panel, handle) {
   let startX, startY, startLeft, startTop;
 
   function beginDrag(clientX, clientY) {
+    panel.dataset.userDragged = 'true';
     const rect = panel.getBoundingClientRect();
     startX    = clientX;
     startY    = clientY;
@@ -1055,6 +1222,14 @@ function applyTranslations() {
   document.getElementById('motor-none').textContent = T.none;
   document.getElementById('register-link').textContent = T.register;
   document.getElementById('header-sub').textContent    = T.subheading;
+  // Modal info
+  document.getElementById('info-title-1').textContent = T.infoTitle1;
+  document.getElementById('info-body-1').textContent  = T.infoBody1;
+  document.getElementById('info-title-2').textContent = T.infoTitle2;
+  document.getElementById('info-body-2').textContent  = T.infoBody2;
+  document.getElementById('info-title-3').textContent = T.infoTitle3;
+  document.getElementById('info-body-3').textContent  = T.infoBody3;
+  document.getElementById('info-btn').setAttribute('aria-label', T.infoTitle1);
   // Descripción dinámica según idioma (el título se mantiene estático en español para SEO)
   document.querySelector('meta[name="description"]')?.setAttribute('content', T.description);
   document.querySelector('meta[property="og:description"]')?.setAttribute('content', T.description);
@@ -1063,6 +1238,23 @@ function applyTranslations() {
   const h = document.getElementById('header').offsetHeight;
   document.documentElement.style.setProperty('--header-h', h + 'px');
 }
+
+/* ═══════════════════════════════════════════════════════════
+   INFO MODAL
+═══════════════════════════════════════════════════════════ */
+(function initInfoModal() {
+  const overlay = document.getElementById('info-overlay');
+  const btn     = document.getElementById('info-btn');
+  const close   = document.getElementById('info-close');
+
+  function open()  { overlay.classList.add('open');    document.body.style.overflow = 'hidden'; }
+  function shut()  { overlay.classList.remove('open'); document.body.style.overflow = ''; }
+
+  btn.addEventListener('click', open);
+  close.addEventListener('click', shut);
+  overlay.addEventListener('click', e => { if (e.target === overlay) shut(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') shut(); });
+})();
 
 /* ═══════════════════════════════════════════════════════════
    MAIN
