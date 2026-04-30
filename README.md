@@ -8,7 +8,7 @@ Mapa interactivo de Ford Pumas (1997-2002).
 
 ## ¿Qué es esto?
 
-Página estática que ubica Ford Pumas en un mapa con iconos coloreados según el color de cada coche. Incluye filtros por color y motor, leyenda dinámica y agrupación por clusters. Compatible con escritorio, tablet y móvil. La interfaz se adapta automáticamente al idioma del navegador (español, inglés, francés, alemán y portugués).
+Página estática que ubica Ford Pumas en un mapa con iconos coloreados según el color de cada coche. Incluye filtros por color y motor, leyenda dinámica, agrupación por clusters y un modal informativo sobre el proyecto y el vehículo. Compatible con escritorio, tablet y móvil; los paneles se reposicionan automáticamente al girar el dispositivo. La interfaz se adapta al idioma del navegador (español, inglés, francés, alemán y portugués).
 
 ## Tecnologías
 
