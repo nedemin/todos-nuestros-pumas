@@ -278,7 +278,7 @@ async function resolveCoords(city, country, gazetteer) {
   try {
     const q = encodeURIComponent(`${city}, ${country}`);
     const url = `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&accept-language=es`;
-    const res  = await fetch(url, { headers: { 'User-Agent': 'TodosNuestrosPumas/1.0' } });
+    const res  = await fetch(url, { signal: AbortSignal.timeout(5000), headers: { 'User-Agent': 'TodosNuestrosPumas/1.0' } });
     const data = await res.json();
     if (data.length > 0) {
       const lat = parseFloat(data[0].lat), lon = parseFloat(data[0].lon);
@@ -765,8 +765,12 @@ async function main() {
     if (!citySet[key]) citySet[key] = { city: v.ciudad, country: v.país };
   }
 
+  const MAX_NOMINATIM_CALLS = 5;
+  let nominatimCalls = 0;
   for (const { city, country } of Object.values(citySet)) {
     if (!gazetteer[city]) {
+      if (nominatimCalls >= MAX_NOMINATIM_CALLS) continue;
+      nominatimCalls++;
       const coords = await resolveCoords(city, country, gazetteer);
       if (coords) gazetteer[city] = coords;
     }
