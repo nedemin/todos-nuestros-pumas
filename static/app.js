@@ -31,10 +31,16 @@ const I18N = {
     register:    'Añade tu Puma',
     subheading:  'Mapa interactivo · Ford Puma 1997-2002',
     description: 'Mapa interactivo de Ford Pumas (1997-2002). Localiza Ford Pumas por ciudad, color y motor. Registra el tuyo.',
-    infoTitle1:  'Sobre este mapa',
-    infoBody1:   'Este mapa colaborativo recoge la ubicación de Ford Pumas (1997-2002) registrados por sus propietarios en todo el mundo. Cada icono representa un coche real. Su color corresponde al color del vehículo. Usa los paneles de filtros y leyenda para explorar los datos.',
+    infoTitle1:  'Censo y mapa del Ford Puma en España (y resto del mundo)',
+    infoBody1:   [
+      'Bienvenido a Todos Nuestros Pumas, el registro visual y colaborativo dedicado a la preservación del Ford Puma clásico (1997-2002).',
+      'En este mapa interactivo podrás localizar las unidades supervivientes de este emblemático coupé deportivo, principalmente por las provincias de España, aunque cualquier propietario europeo —o de cualquier rincón del mundo donde haya emigrado un Puma— es bienvenido a sumar la suya.',
+      'Nuestro objetivo es crear una red para propietarios y entusiastas de las motorizaciones 1.4, 1.6 y el mítico 1.7 de distribución variable, ayudando a mantener viva la presencia de un vehículo del que ya quedan pocas unidades en circulación.',
+      'Si tienes uno, añádelo al mapa y haz que la comunidad siga creciendo.',
+      '¡Explora dónde se encuentran los pequeños felinos de Ford y conecta con otros aficionados al motor!',
+    ],
     infoTitle2:  '¿Qué es un Ford Puma?',
-    infoBody2:   'El Ford Puma es un coupé deportivo compacto fabricado por Ford Europa entre 1997 y 2002. Basado en la plataforma del Ford Fiesta, se ofreció con tres motores: el 1.4, el 1.6 y el 1.7 de 125 CV — este último especialmente valorado por su respuesta y sonido. Ligero, ágil y con un diseño que ha envejecido muy bien, el Puma se ganó una legión de seguidores que hoy lo consideran uno de los deportivos asequibles más divertidos de conducir de su época.',
+    infoBody2:   'El Ford Puma es un coupé deportivo compacto fabricado por Ford Europa entre 1997 y 2002. Basado en la plataforma del Ford Fiesta, se ofreció con tres motores: el 1.4, el 1.6 y el 1.7 de 125 CV con culata desarrollada por Yamaha — este último especialmente valorado por su respuesta y sonido. Ligero, ágil y con un diseño que ha envejecido muy bien, el Puma se ganó una legión de seguidores que hoy lo consideran uno de los deportivos asequibles más divertidos de conducir de su época.',
     infoTitle3:  '¿Tienes un Ford Puma (1997-2002)?',
     infoBody3:   'Pulsa «Añade tu Puma» para registrar el tuyo. Solo se registra la ciudad — nunca se publican datos personales ni la dirección exacta.',
     colorNames:  { rojo:'Rojo', blanco:'Blanco', gris:'Gris', plata:'Plata', azul:'Azul', verde:'Verde', negro:'Negro', amarillo:'Amarillo', naranja:'Naranja', 'marrón':'Marrón', 'azul imperial':'Azul Imperial', plateado:'Plateado' },
@@ -59,10 +65,16 @@ const I18N = {
     register:    'Register your Puma',
     subheading:  'Interactive map · Ford Puma 1997–2002',
     description: 'Interactive map of Ford Pumas (1997–2002). Find Ford Pumas by city, colour and engine. Register yours.',
-    infoTitle1:  'About this map',
-    infoBody1:   'A collaborative map collecting the location of Ford Pumas (1997-2002) registered by their owners around the world. Each icon represents a real car. Its colour matches the vehicle\'s colour. Use the filter and legend panels to explore the data.',
+    infoTitle1:  'Census and map of the Ford Puma in Spain (and the rest of the world)',
+    infoBody1:   [
+      'Welcome to All Our Pumas, the visual and collaborative registry dedicated to preserving the classic Ford Puma (1997-2002).',
+      'On this interactive map you can locate the surviving units of this iconic sports coupé, mainly across the provinces of Spain — though any European owner, or anyone from any corner of the world where a Puma has emigrated, is welcome to add theirs.',
+      'Our goal is to build a network for owners and enthusiasts of the 1.4, 1.6 and the legendary 1.7 with variable valve timing, helping to keep alive the presence of a car with very few units left on the road.',
+      'If you own one, add it to the map and help the community keep growing.',
+      'Explore where Ford\'s little felines can be found and connect with fellow motoring enthusiasts!',
+    ],
     infoTitle2:  'What is a Ford Puma?',
-    infoBody2:   'The Ford Puma is a compact sports coupé manufactured by Ford Europe between 1997 and 2002. Based on the Ford Fiesta platform, it was offered with three engines: the 1.4, the 1.6, and the 1.7 with 125 bhp — the latter particularly valued for its response and sound. Light, agile and with a design that has aged very well, the Puma won a legion of fans who today consider it one of the most enjoyable affordable sports cars of its era.',
+    infoBody2:   'The Ford Puma is a compact sports coupé manufactured by Ford Europe between 1997 and 2002. Based on the Ford Fiesta platform, it was offered with three engines: the 1.4, the 1.6, and the 1.7 with 125 bhp and Yamaha-developed cylinder head — the latter particularly valued for its response and sound. Light, agile and with a design that has aged very well, the Puma won a legion of fans who today consider it one of the most enjoyable affordable sports cars of its era.',
     infoTitle3:  'Do you own a Ford Puma (1997–2002)?',
     infoBody3:   'Tap «Register your Puma» to add yours to the map. Only the city is recorded — no personal data or exact address is ever published.',
     colorNames:  { rojo:'Red', blanco:'White', gris:'Grey', plata:'Silver', azul:'Blue', verde:'Green', negro:'Black', amarillo:'Yellow', naranja:'Orange', 'marrón':'Brown', 'azul imperial':'Imperial Blue', plateado:'Silver' },
@@ -87,10 +99,16 @@ const I18N = {
     register:    'Enregistrer votre Puma',
     subheading:  'Carte interactive · Ford Puma 1997-2002',
     description: 'Carte interactive des Ford Puma (1997-2002). Trouvez des Ford Pumas par ville, couleur et moteur. Enregistrez le vôtre.',
-    infoTitle1:  'À propos de cette carte',
-    infoBody1:   'Une carte collaborative qui recense la localisation des Ford Puma (1997-2002) enregistrées par leurs propriétaires dans le monde entier. Chaque icône représente une vraie voiture. Sa couleur correspond à celle du véhicule. Utilisez les panneaux de filtres et de légende pour explorer les données.',
+    infoTitle1:  'Recensement et carte de la Ford Puma en Espagne (et dans le reste du monde)',
+    infoBody1:   [
+      'Bienvenue sur Tous nos Pumas, le registre visuel et collaboratif dédié à la préservation de la Ford Puma classique (1997-2002).',
+      'Sur cette carte interactive, vous pourrez localiser les unités survivantes de ce coupé sportif emblématique, principalement dans les provinces d\'Espagne, bien que tout propriétaire européen — ou de n\'importe quel coin du monde où une Puma aurait émigré — soit le bienvenu pour ajouter la sienne.',
+      'Notre objectif est de créer un réseau pour les propriétaires et passionnés des motorisations 1.4, 1.6 et de la mythique 1.7 à distribution variable, en aidant à maintenir vivante la présence d\'un véhicule dont il ne reste que peu d\'unités en circulation.',
+      'Si vous en possédez une, ajoutez-la à la carte et faites grandir la communauté.',
+      'Explorez où se trouvent les petits félins de Ford et connectez-vous avec d\'autres passionnés d\'automobile !',
+    ],
     infoTitle2:  'Qu\'est-ce qu\'une Ford Puma ?',
-    infoBody2:   'La Ford Puma est un coupé sportif compact fabriqué par Ford Europe entre 1997 et 2002. Basée sur la plateforme de la Ford Fiesta, elle était proposée avec trois motorisations : le 1.4, le 1.6 et le 1.7 de 125 ch — ce dernier particulièrement apprécié pour ses réponses et son sonorité. Légère, agile et avec un design qui a très bien vieilli, la Puma s\'est fait une légion de fans qui la considèrent aujourd\'hui comme l\'une des sportives abordables les plus amusantes à conduire de son époque.',
+    infoBody2:   'La Ford Puma est un coupé sportif compact fabriqué par Ford Europe entre 1997 et 2002. Basée sur la plateforme de la Ford Fiesta, elle était proposée avec trois motorisations : le 1.4, le 1.6 et le 1.7 de 125 ch à culasse développée par Yamaha — ce dernier particulièrement apprécié pour ses réponses et son sonorité. Légère, agile et avec un design qui a très bien vieilli, la Puma s\'est fait une légion de fans qui la considèrent aujourd\'hui comme l\'une des sportives abordables les plus amusantes à conduire de son époque.',
     infoTitle3:  'Vous avez une Ford Puma (1997-2002) ?',
     infoBody3:   'Appuyez sur « Enregistrer votre Puma » pour l\'ajouter à la carte. Seule la ville est enregistrée — aucune donnée personnelle ni adresse exacte n\'est jamais publiée.',
     colorNames:  { rojo:'Rouge', blanco:'Blanc', gris:'Gris', plata:'Argent', azul:'Bleu', verde:'Vert', negro:'Noir', amarillo:'Jaune', naranja:'Orange', 'marrón':'Marron', 'azul imperial':'Bleu impérial', plateado:'Argenté' },
@@ -115,10 +133,16 @@ const I18N = {
     register:    'Deinen Puma registrieren',
     subheading:  'Interaktive Karte · Ford Puma 1997–2002',
     description: 'Interaktive Karte der Ford Pumas (1997–2002). Finde Ford Pumas nach Stadt, Farbe und Motor. Registriere deinen.',
-    infoTitle1:  'Über diese Karte',
-    infoBody1:   'Eine kollaborative Karte, die den Standort von Ford Pumas (1997-2002) sammelt, die von ihren Besitzern weltweit registriert wurden. Jedes Symbol steht für ein echtes Auto. Seine Farbe entspricht der Fahrzeugfarbe. Nutze die Filter- und Legendenpanels, um die Daten zu erkunden.',
+    infoTitle1:  'Verzeichnis und Karte des Ford Puma in Spanien (und im Rest der Welt)',
+    infoBody1:   [
+      'Willkommen bei Alle unsere Pumas, dem visuellen und kollaborativen Verzeichnis zur Erhaltung des klassischen Ford Puma (1997-2002).',
+      'Auf dieser interaktiven Karte kannst du die überlebenden Exemplare dieses emblematischen Sportcoupés finden, vor allem in den spanischen Provinzen — wobei jeder europäische Besitzer, oder jemand aus einem Winkel der Welt, in den ein Puma ausgewandert ist, herzlich willkommen ist, seinen hinzuzufügen.',
+      'Unser Ziel ist es, ein Netzwerk für Besitzer und Enthusiasten der Motorisierungen 1.4, 1.6 und des legendären 1.7 mit variabler Ventilsteuerung aufzubauen und so die Präsenz eines Fahrzeugs am Leben zu erhalten, von dem nur noch wenige Exemplare im Verkehr sind.',
+      'Wenn du einen besitzt, füge ihn der Karte hinzu und lass die Gemeinschaft weiterwachsen.',
+      'Entdecke, wo sich die kleinen Raubkatzen von Ford befinden, und vernetze dich mit anderen Auto-Enthusiasten!',
+    ],
     infoTitle2:  'Was ist ein Ford Puma?',
-    infoBody2:   'Der Ford Puma ist ein kompaktes Sportcoupé, das von Ford Europa zwischen 1997 und 2002 hergestellt wurde. Basierend auf der Ford Fiesta-Plattform wurde er mit drei Motoren angeboten: dem 1.4, dem 1.6 und dem 1.7 mit 125 PS — letzterer besonders wegen seiner Reaktionsfähigkeit und seines Klangs geschätzt. Leicht, agil und mit einem Design, das sehr gut gealtert ist, gewann der Puma eine Fangemeinde, die ihn heute als einen der spaßigsten erschwinglichen Sportwagen seiner Ära betrachtet.',
+    infoBody2:   'Der Ford Puma ist ein kompaktes Sportcoupé, das von Ford Europa zwischen 1997 und 2002 hergestellt wurde. Basierend auf der Ford Fiesta-Plattform wurde er mit drei Motoren angeboten: dem 1.4, dem 1.6 und dem 1.7 mit 125 PS und von Yamaha entwickeltem Zylinderkopf — letzterer besonders wegen seiner Reaktionsfähigkeit und seines Klangs geschätzt. Leicht, agil und mit einem Design, das sehr gut gealtert ist, gewann der Puma eine Fangemeinde, die ihn heute als einen der spaßigsten erschwinglichen Sportwagen seiner Ära betrachtet.',
     infoTitle3:  'Hast du einen Ford Puma (1997–2002)?',
     infoBody3:   'Tippe auf «Deinen Puma registrieren», um ihn zur Karte hinzuzufügen. Nur die Stadt wird erfasst — persönliche Daten oder genaue Adressen werden nie veröffentlicht.',
     colorNames:  { rojo:'Rot', blanco:'Weiß', gris:'Grau', plata:'Silber', azul:'Blau', verde:'Grün', negro:'Schwarz', amarillo:'Gelb', naranja:'Orange', 'marrón':'Braun', 'azul imperial':'Kaiserblau', plateado:'Silber' },
@@ -143,10 +167,16 @@ const I18N = {
     register:    'Registar o teu Puma',
     subheading:  'Mapa interativo · Ford Puma 1997-2002',
     description: 'Mapa interativo de Ford Pumas (1997-2002). Encontre Ford Pumas por cidade, cor e motor. Registe o seu.',
-    infoTitle1:  'Sobre este mapa',
-    infoBody1:   'Um mapa colaborativo que reúne a localização de Ford Pumas (1997-2002) registados pelos seus proprietários em todo o mundo. Cada ícone representa um carro real. A sua cor corresponde à cor do veículo. Use os painéis de filtros e legenda para explorar os dados.',
+    infoTitle1:  'Censo e mapa do Ford Puma em Espanha (e no resto do mundo)',
+    infoBody1:   [
+      'Bem-vindo a Todos os Nossos Pumas, o registo visual e colaborativo dedicado à preservação do Ford Puma clássico (1997-2002).',
+      'Neste mapa interativo poderás localizar as unidades sobreviventes deste emblemático coupé desportivo, principalmente pelas províncias de Espanha, embora qualquer proprietário europeu — ou de qualquer canto do mundo para onde tenha emigrado um Puma — seja bem-vindo a juntar a sua.',
+      'O nosso objetivo é criar uma rede para proprietários e entusiastas das motorizações 1.4, 1.6 e o mítico 1.7 com distribuição variável, ajudando a manter viva a presença de um veículo do qual já restam poucas unidades em circulação.',
+      'Se tens um, adiciona-o ao mapa e faz com que a comunidade continue a crescer.',
+      'Explora onde se encontram os pequenos felinos da Ford e conecta-te com outros entusiastas do motor!',
+    ],
     infoTitle2:  'O que é um Ford Puma?',
-    infoBody2:   'O Ford Puma é um coupé desportivo compacto fabricado pela Ford Europa entre 1997 e 2002. Baseado na plataforma do Ford Fiesta, foi oferecido com três motores: o 1.4, o 1.6 e o 1.7 de 125 CV — este último especialmente valorizado pela sua resposta e som. Leve, ágil e com um design que envelheceu muito bem, o Puma conquistou uma legião de fãs que hoje o consideram um dos desportivos acessíveis mais divertidos de conduzir da sua época.',
+    infoBody2:   'O Ford Puma é um coupé desportivo compacto fabricado pela Ford Europa entre 1997 e 2002. Baseado na plataforma do Ford Fiesta, foi oferecido com três motores: o 1.4, o 1.6 e o 1.7 de 125 CV com cabeça de cilindros desenvolvida pela Yamaha — este último especialmente valorizado pela sua resposta e som. Leve, ágil e com um design que envelheceu muito bem, o Puma conquistou uma legião de fãs que hoje o consideram um dos desportivos acessíveis mais divertidos de conduzir da sua época.',
     infoTitle3:  'Tens um Ford Puma (1997-2002)?',
     infoBody3:   'Prime «Registar o teu Puma» para adicionar o teu ao mapa. Apenas a cidade é registada — nunca são publicados dados pessoais nem a morada exacta.',
     colorNames:  { rojo:'Vermelho', blanco:'Branco', gris:'Cinzento', plata:'Prata', azul:'Azul', verde:'Verde', negro:'Preto', amarillo:'Amarelo', naranja:'Laranja', 'marrón':'Castanho', 'azul imperial':'Azul Imperial', plateado:'Prateado' },
@@ -708,8 +738,25 @@ function applyTranslations() {
   document.getElementById('register-link').textContent = T.register;
   document.getElementById('header-sub').textContent    = T.subheading;
   // Modal info
-  document.getElementById('info-title-1').textContent = T.infoTitle1;
-  document.getElementById('info-body-1').textContent  = T.infoBody1;
+  const titleEl = document.getElementById('info-title-1');
+  titleEl.replaceChildren();
+  const parenIdx = T.infoTitle1.indexOf('(');
+  if (parenIdx > 0) {
+    titleEl.appendChild(document.createTextNode(T.infoTitle1.slice(0, parenIdx)));
+    const span = document.createElement('span');
+    span.style.whiteSpace = 'nowrap';
+    span.textContent = T.infoTitle1.slice(parenIdx);
+    titleEl.appendChild(span);
+  } else {
+    titleEl.textContent = T.infoTitle1;
+  }
+  const body1 = document.getElementById('info-body-1');
+  body1.replaceChildren();
+  (Array.isArray(T.infoBody1) ? T.infoBody1 : [T.infoBody1]).forEach(p => {
+    const el = document.createElement('p');
+    el.textContent = p;
+    body1.appendChild(el);
+  });
   document.getElementById('info-title-2').textContent = T.infoTitle2;
   document.getElementById('info-body-2').textContent  = T.infoBody2;
   document.getElementById('info-title-3').textContent = T.infoTitle3;

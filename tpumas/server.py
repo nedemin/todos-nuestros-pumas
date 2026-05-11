@@ -7,13 +7,17 @@
 Servidor local para Todos Nuestros Pumas.
 
 Uso:
-    poetry run serve [puerto]        # por defecto: 8080
+    poetry run serve [puerto]        # por defecto: 8080, solo localhost
+    poetry run serve [puerto] --lan  # accesible en la red local (móvil, tablet)
 
 Abre automáticamente el navegador en http://localhost:<puerto>
+Cuando se usa --lan, también imprime la URL accesible desde otros
+dispositivos en la misma red WiFi.
 """
 
 import http.server
 import os
+import socket
 import sys
 import threading
 import webbrowser
@@ -23,8 +27,25 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 
+def lan_ip() -> str | None:
+    """Devuelve la IP de la interfaz de red local (None si no hay)."""
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        return s.getsockname()[0]
+    except OSError:
+        return None
+    finally:
+        s.close()
+
+
 def main() -> None:
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    flags = {a for a in sys.argv[1:] if a.startswith("--")}
+
+    port = int(args[0]) if args else 8080
+    lan_mode = "--lan" in flags
+    bind = "" if lan_mode else "127.0.0.1"
 
     # Servir desde la raíz del proyecto
     os.chdir(ROOT)
@@ -35,8 +56,12 @@ def main() -> None:
 
     url = f"http://localhost:{port}"
 
-    with http.server.HTTPServer(("127.0.0.1", port), QuietHandler) as httpd:
+    with http.server.HTTPServer((bind, port), QuietHandler) as httpd:
         print(f"Todos Nuestros Pumas · {url}")
+        if lan_mode:
+            ip = lan_ip()
+            if ip:
+                print(f"Red local · http://{ip}:{port}")
         print("Pulsa Ctrl+C para detener.\n")
         # Abrir el navegador en un hilo separado para no bloquear el servidor
         threading.Timer(0.5, webbrowser.open, args=[url]).start()

@@ -10,7 +10,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://unpkg.com; style-src 'self' https://unpkg.com 'unsafe-inline'; img-src 'self' https://*.tile.openstreetmap.org data: blob:; connect-src 'self' https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'self';" />
-  <title>Todos Nuestros Pumas</title>
+  <title>Todos Nuestros Pumas — Censo y mapa del Ford Puma en España y en el mundo</title>
 
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -84,6 +84,38 @@
       "name": "Ford Puma",
       "description": "Automóvil deportivo fabricado por Ford entre 1997 y 2002"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué es un Ford Puma?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El Ford Puma es un coupé deportivo compacto fabricado por Ford Europa entre 1997 y 2002. Basado en la plataforma del Ford Fiesta, se ofreció con tres motores: el 1.4, el 1.6 y el 1.7 de 125 CV con culata desarrollada por Yamaha — este último especialmente valorado por su respuesta y sonido."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Tienes un Ford Puma (1997-2002)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pulsa «Añade tu Puma» para registrar el tuyo en el mapa. Solo se registra la ciudad — nunca se publican datos personales ni la dirección exacta."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué es Todos Nuestros Pumas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Todos Nuestros Pumas es un censo y mapa colaborativo del Ford Puma clásico (1997-2002). Recoge la ubicación de las unidades supervivientes registradas por sus propietarios, principalmente en España, aunque cualquier propietario europeo o del resto del mundo puede sumar la suya."
+        }
+      }
+    ]
   }
   </script>
 
@@ -168,11 +200,16 @@
       line-height: 1.6;
       color: #333;
     }
-    #info-modal-icon {
-      display: block;
-      width: 72px;
-      height: auto;
+    #info-modal-icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
       margin: 0 auto 18px;
+    }
+    #info-modal-icons img {
+      width: 60px;
+      height: auto;
     }
     #info-modal h2 {
       font-size: 1em;
@@ -206,12 +243,12 @@
     /* TV: pantallas muy grandes */
     @media (min-width: 1600px) {
       #info-modal { width: min(90vw, 580px); font-size: 17px; }
-      #info-modal-icon { width: 90px; }
+      #info-modal-icons img { width: 76px; }
       #info-btn { width: 34px; height: 34px; font-size: 17px; }
     }
     /* Landscape en móvil: altura limitada */
     @media (max-height: 500px) {
-      #info-modal-icon { display: none; }
+      #info-modal-icons { display: none; }
       #info-modal { padding: 14px 20px 16px; font-size: 13px; }
     }
 
@@ -487,18 +524,28 @@
 <div id="info-overlay" role="dialog" aria-modal="true" aria-labelledby="info-title-1">
   <div id="info-modal">
     <button id="info-close" aria-label="Cerrar">✕</button>
-    <img id="info-modal-icon" src="/icons/puma_rojo.png" alt="Ford Puma" />
+    <div id="info-modal-icons">
+      <img src="/icons/puma_verde.png" alt="" />
+      <img src="/icons/puma_rojo.png" alt="Ford Puma" />
+      <img src="/icons/puma_plateado.png" alt="" />
+    </div>
     <section>
-      <h2 id="info-title-1"></h2>
-      <p id="info-body-1"></p>
+      <h2 id="info-title-1">Censo y mapa del Ford Puma en España <span style="white-space:nowrap">(y resto del mundo)</span></h2>
+      <div id="info-body-1">
+        <p>Bienvenido a Todos Nuestros Pumas, el registro visual y colaborativo dedicado a la preservación del Ford Puma clásico (1997-2002).</p>
+        <p>En este mapa interactivo podrás localizar las unidades supervivientes de este emblemático coupé deportivo, principalmente por las provincias de España, aunque cualquier propietario europeo —o de cualquier rincón del mundo donde haya emigrado un Puma— es bienvenido a sumar la suya.</p>
+        <p>Nuestro objetivo es crear una red para propietarios y entusiastas de las motorizaciones 1.4, 1.6 y el mítico 1.7 de distribución variable, ayudando a mantener viva la presencia de un vehículo del que ya quedan pocas unidades en circulación.</p>
+        <p>Si tienes uno, añádelo al mapa y haz que la comunidad siga creciendo.</p>
+        <p>¡Explora dónde se encuentran los pequeños felinos de Ford y conecta con otros aficionados al motor!</p>
+      </div>
     </section>
     <section>
-      <h2 id="info-title-2"></h2>
-      <p id="info-body-2"></p>
+      <h2 id="info-title-2">¿Qué es un Ford Puma?</h2>
+      <p id="info-body-2">El Ford Puma es un coupé deportivo compacto fabricado por Ford Europa entre 1997 y 2002. Basado en la plataforma del Ford Fiesta, se ofreció con tres motores: el 1.4, el 1.6 y el 1.7 de 125 CV con culata desarrollada por Yamaha — este último especialmente valorado por su respuesta y sonido. Ligero, ágil y con un diseño que ha envejecido muy bien, el Puma se ganó una legión de seguidores que hoy lo consideran uno de los deportivos asequibles más divertidos de conducir de su época.</p>
     </section>
     <section>
-      <h2 id="info-title-3"></h2>
-      <p id="info-body-3"></p>
+      <h2 id="info-title-3">¿Tienes un Ford Puma (1997-2002)?</h2>
+      <p id="info-body-3">Pulsa «Añade tu Puma» para registrar el tuyo. Solo se registra la ciudad — nunca se publican datos personales ni la dirección exacta.</p>
     </section>
   </div>
 </div>
@@ -544,7 +591,10 @@
 </div>
 
 <noscript>
-  <p>Mapa interactivo de Ford Pumas (1997-2002). Localiza Ford Pumas por ciudad, color y motor. Registra el tuyo.</p>
+  <h1>Censo y mapa del Ford Puma clásico (1997-2002) en España y en el mundo</h1>
+  <p>Mapa interactivo y registro colaborativo de Ford Pumas (1997-2002) registrados por sus propietarios. El Ford Puma fue un coupé deportivo compacto fabricado por Ford Europa entre 1997 y 2002, ofrecido con tres motorizaciones: 1.4, 1.6 y el mítico 1.7 de 125 CV con culata desarrollada por Yamaha.</p>
+  <p>El mapa cubre todas las comunidades autónomas y provincias de España, incluyendo Madrid, Barcelona, Valencia, Sevilla, Zaragoza, Málaga, Murcia, Bilbao, Alicante, Córdoba, Valladolid, Vigo, A Coruña, Gijón, Oviedo, Granada, Vitoria, Pamplona, Santander, San Sebastián, Toledo, Burgos, Salamanca, Cádiz, Almería, Albacete, Castellón, Tarragona, Girona, Lleida, Huelva, Jaén, Logroño, Lugo, Cáceres, Badajoz, Cuenca, Guadalajara, Ciudad Real, Soria, Ávila, Segovia, Palencia, Zamora, León, Ourense, Pontevedra, Huesca, Teruel, Palma de Mallorca, Las Palmas, Santa Cruz de Tenerife, Ceuta y Melilla.</p>
+  <p>Cualquier propietario europeo —o de cualquier rincón del mundo donde haya emigrado un Puma— es bienvenido a registrar el suyo y sumarlo al mapa.</p>
 </noscript>
 
 <!-- Leaflet JS -->

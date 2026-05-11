@@ -2,7 +2,9 @@
 
 ## Descripción general
 
-Página web estática que lee una lista de vehículos desde un archivo CSV y los ubica en un mapa interactivo. No requiere ejecución de código en el servidor; está pensada para desplegarse en **GitHub Pages**.
+Censo colaborativo del **Ford Puma clásico (1997-2002)**: página web estática que muestra en un mapa interactivo las unidades supervivientes registradas por sus propietarios. Los datos se recogen mediante un formulario público de Google Forms y se publican en `data/pumas.csv`. No requiere ejecución de código en el servidor; está pensada para desplegarse en **GitHub Pages**.
+
+La interfaz se adapta automáticamente al idioma del navegador (español, inglés, francés, alemán y portugués), con el español como valor por defecto.
 
 ---
 
@@ -20,9 +22,10 @@ Página web estática que lee una lista de vehículos desde un archivo CSV y los
   - El jitter debe garantizar que los puntos desplazados no caigan en el mar, lagos, ríos ni ningún lugar donde no pueda haber un coche.
   - El radio de jitter es de ~3 km (0.03 grados). Para ciudades costeras, las coordenadas de referencia en el gazetteer se desplazan tierra adentro para que ningún offset alcance el mar.
 - Cuando el nivel de zoom sea bajo, agrupar los resultados en **clusters** representados con un globo del color predominante del cluster, mostrando el número de elementos en su interior.
-- Por configuración (`USE_PNG_ICONS`), se podrá sustituir el icono generado por un **PNG externo**. El patrón de nombre es `puma_[color].png`, cargado desde la carpeta `/icons`. El color se normaliza a minúsculas con espacios reemplazados por guiones bajos (ej. `azul_imperial`).
+- Por configuración (`USE_PNG_ICONS`), se podrá sustituir el icono generado por un **PNG externo**. El patrón de nombre es `puma_[color].png`, cargado desde la carpeta `/icons`. El color se normaliza a minúsculas, con espacios reemplazados por guiones bajos y acentos eliminados (NFD), de modo que `azul imperial` → `azul_imperial` y `marrón` → `marron`. Si el color no está en la whitelist `COLOR_MAP`, se usa `rojo` como fallback seguro.
   - `USE_PNG_ICONS = true` por defecto, ya que se incluyen los PNGs generados para todos los colores del CSV.
-  - La carpeta `/icons` contiene un PNG por cada color presente en el CSV, generados colorizando fotográficamente la imagen base `puma_silueta.png` (802×311 px, RGBA) mediante el script `gen_icons.py`. El proceso convierte la luminancia original de la silueta y aplica el color destino mediante multiplicación de luminancia con corrección gamma (γ = 0.85) y realce de brillos especulares. Los PNGs resultantes se guardan a **120×48 px** (resolución 2× para pantallas retina) y Leaflet los renderiza a 60×24 px CSS mediante `iconSize: [60, 24]`.
+  - La carpeta `/icons` contiene un PNG por cada color presente en el CSV, generados colorizando fotográficamente la imagen base `puma_plateado.png` mediante el script `scripts/gen_icons.py`. El proceso convierte la luminancia original de la silueta y aplica el color destino mediante multiplicación de luminancia con corrección gamma (γ = 0.85) y realce de brillos especulares. Los PNGs resultantes se guardan a **120×48 px** (resolución 2× para pantallas retina) y Leaflet los renderiza a 60×24 px CSS mediante `iconSize: [60, 24]`.
+  - Algunos colores (`naranja`, `marron`) están definidos como alias de `rojo` mediante `cp`, ya que no tienen icono propio aún.
 
 ---
 
@@ -45,7 +48,21 @@ Página web estática que lee una lista de vehículos desde un archivo CSV y los
 ### Título
 
 - Texto **"Todos Nuestros Pumas"** centrado en la parte superior de la página.
-- El mismo texto en el `<title>` del HTML.
+- El `<title>` del HTML es **"Todos Nuestros Pumas — Censo y mapa del Ford Puma en España y en el mundo"** (estático en español por SEO; ver sección _Estrategia SEO_).
+- Bajo el título, un subtítulo con tipografía menor: **"Mapa interactivo · Ford Puma 1997-2002"** (traducido según idioma).
+- A la derecha del título, un botón circular **"i"** que abre la ventana modal de información.
+
+### Ventana modal de información
+
+Al pulsar el botón **"i"** se abre una ventana flotante con tres secciones:
+
+1. **Censo y mapa del Ford Puma en España (y resto del mundo)** — descripción del proyecto, objetivo y llamada a la acción.
+2. **¿Qué es un Ford Puma?** — ficha técnica del vehículo, incluyendo las tres motorizaciones (1.4, 1.6 y el 1.7 de 125 CV con culata desarrollada por Yamaha).
+3. **¿Tienes un Ford Puma (1997-2002)?** — instrucciones para registrar el coche, con enlace al formulario de Google Forms.
+
+En la parte superior del modal se muestran **tres iconos de Ford Puma** (verde, rojo, plateado) como guiño visual al coche.
+
+Todos los textos del modal están traducidos a los 5 idiomas soportados. El contenido en español está además **pre-renderizado en el HTML** (no se genera por JS) para que los buscadores lo indexen sin necesidad de ejecutar JavaScript.
 
 ### Leyenda (panel derecho)
 
@@ -80,10 +97,21 @@ Al pasar el cursor sobre un punto se muestra un popover con:
 
 ---
 
-## Entrega
-Hay que generar 2 versiones:
-- Generar un **ZIP** con todos los archivos necesarios para que la aplicación funcione directamente al descomprimir.
-- Generar un poetry que permita servir localmente la aplicación y así poder probarla localmente.
+## Estrategia SEO
+
+- `<title>` y `<meta description>` estáticos en español, ya que Googlebot crawlea con `navigator.language=en` y actualizar dinámicamente el título causaba que apareciera la versión inglesa ("All Our Pumas") en resultados españoles.
+- `<html lang>` sí se actualiza dinámicamente para reflejar el idioma activo.
+- Contenido del modal pre-renderizado en HTML en español (los buscadores lo indexan sin ejecutar JS).
+- `<noscript>` con texto rico que incluye las provincias de España como palabras clave.
+- `hreflang` declarado para los 5 idiomas (todos apuntan a la misma URL).
+- JSON-LD con `WebApplication` y `FAQPage` para resultados enriquecidos.
+- `sitemap.xml` y `robots.txt` con `Disallow: /data/` para evitar indexar los archivos brutos.
+
+---
+
+## Despliegue
+
+Despliegue automático en **GitHub Pages** desde la rama `main`, con dominio personalizado vía `CNAME`. El proyecto incluye un servidor de desarrollo (`poetry run serve`) que admite el flag `--lan` para probar la web desde otros dispositivos en la misma red.
 
 ---
 
@@ -91,10 +119,23 @@ Hay que generar 2 versiones:
 
 ```
 /
-├── index.html
+├── index.html                # Página principal (HTML + CSS)
+├── static/
+│   └── app.js                # Lógica de la aplicación
+├── CNAME                     # Dominio personalizado
+├── site.webmanifest          # Manifiesto PWA
+├── robots.txt / sitemap.xml
 ├── data/
-│   ├── pumas.csv
-│   └── gazetteer.json
-└── icons/
-    └── puma_[color].png   ← recursos opcionales (USE_PNG_ICONS = false por defecto)
+│   ├── pumas.csv             # Lista pública de vehículos
+│   └── gazetteer.json        # Coordenadas offline por ciudad
+├── docs/
+│   └── SPECS.md              # Este documento
+├── icons/
+│   └── puma_[color].png      # Iconos generados por gen_icons.py
+├── scripts/
+│   ├── update_from_sheets.py # Actualiza pumas.csv desde Google Sheets
+│   ├── convert_csv.py        # Convierte CSV privado al formato público
+│   └── gen_icons.py          # Genera los iconos PNG
+└── tpumas/
+    └── server.py             # Servidor de desarrollo local
 ```

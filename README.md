@@ -49,9 +49,12 @@ Requiere [Poetry](https://python-poetry.org/).
 
 ```bash
 poetry install
-poetry run serve        # abre http://localhost:8080
-poetry run serve 9000   # puerto alternativo
+poetry run serve              # abre http://localhost:8080
+poetry run serve 9000         # puerto alternativo
+poetry run serve 8080 --lan   # accesible desde otros dispositivos en la misma WiFi
 ```
+
+Con `--lan`, el servidor también imprime la URL accesible desde la red local (útil para probar la web en el móvil o la tablet sin desplegar).
 
 Para regenerar los iconos PNG (solo si se añaden colores nuevos):
 
