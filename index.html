@@ -9,7 +9,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://unpkg.com; style-src 'self' https://unpkg.com 'unsafe-inline'; img-src 'self' https://*.tile.openstreetmap.org data: blob:; connect-src 'self' https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'self';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://unpkg.com https://cloud.umami.is; style-src 'self' https://unpkg.com 'unsafe-inline'; img-src 'self' https://*.tile.openstreetmap.org data: blob:; connect-src 'self' https://nominatim.openstreetmap.org https://cloud.umami.is; manifest-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'self';" />
   <title>Todos Nuestros Pumas — Censo y mapa del Ford Puma en España y en el mundo</title>
 
   <!-- Favicons -->
@@ -511,6 +511,9 @@
     .puma-tooltip .tt-row { display: flex; justify-content: space-between; gap: 8px; }
     .puma-tooltip .tt-counts { margin-top: 5px; border-top: 1px solid #eee; padding-top: 4px; }
   </style>
+
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="c2c91bcc-1779-4ae9-91c2-af38a598c83d"></script>
 </head>
 <body>
 
